@@ -180,58 +180,6 @@ Install example:
 pip install pandas numpy plotly scikit-learn hdbscan
 ```
 
-## Main findings
-
-### Dataset shape
-
-- `combined_deposits_cleaned.csv` has `1,771,026` rows
-- there are `65,859` distinct `UserCardBIN`-`Channel` pairs
-- the median pair has only `3` rows
-- `74.16%` of pairs have `10` rows or fewer
-
-This means raw pair-level rates are dominated by noise for most of the graph.
-
-### Fraud maturity matters
-
-- observed fraud falls sharply in more recent transaction cohorts
-- among fraud rows with both dates populated, the median detection delay is `11.76` days
-- the mean delay is `16.37` days
-- the P90 delay is `36.07` days
-
-Recent transactions therefore understate true fraud.
-
-### Segment mix matters
-
-On a 45-day mature cohort, approval declines and fraud rises steadily by segment:
-
-- Segment 1: approval `72.96%`, fraud on approved `0.92%`
-- Segment 2: approval `62.66%`, fraud on approved `1.73%`
-- Segment 3: approval `53.36%`, fraud on approved `3.78%`
-- Segment 4: approval `43.17%`, fraud on approved `5.01%`
-
-This means raw comparisons across nodes are confounded by customer mix.
-
-### High-volume node view
-
-Using nodes with more than `100` rows as the high-volume reference set:
-
-- there are `2,662` high-volume pairs
-- `264` sit in the concern quadrant, meaning worse-than-expected approval and worse-than-expected fraud at the same time
-
-Those views are further explored through clustering and graph analysis in `decision_design`.
-
-## Recommended way to read the repo
-
-1. Start with `univariate_reports/index.html`.
-2. Review the fraud-maturity reports in `bivariate_reports`.
-3. Review the segment-control reports in `bivariate_reports`.
-4. Move to the pair-level outputs in `decision_design`.
-
-If you want the full analyst notes behind the workflow, see:
-
-- `project_summary.md`
-- `workflow_steps.md`
-
 ## Notes
 
 - This repository is a curated public subset of a larger local workspace.
