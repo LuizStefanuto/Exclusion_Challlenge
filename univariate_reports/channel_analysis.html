@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channel Univariate Analysis</title>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px;
+            background: #f0f2f5;
+            color: #1a1a2e;
+        }
+        h1 {
+            color: #1a1a2e;
+            font-size: 1.85em;
+            font-weight: 600;
+            margin-bottom: 6px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #4A90D9;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 16px 18px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-left: 4px solid #4A90D9;
+        }
+        .stat-card.small .stat-value {
+            font-size: 1.05em;
+        }
+        .stat-label {
+            color: #888;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .stat-value {
+            color: #1a1a2e;
+            font-size: 1.4em;
+            font-weight: 600;
+            line-height: 1.25;
+            word-break: break-word;
+        }
+        .chart-container, .table-container, .notes-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #4A90D9;
+            border-radius: 2px;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.05em;
+        }
+        .observations {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            margin: 20px 0;
+        }
+        .observations h2 {
+            color: #333;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0 0 12px 0;
+        }
+        .observations ul {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.9;
+        }
+        .badge {
+            display: inline-block;
+            background: #EEF4FA;
+            color: #4A90D9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+        .note {
+            padding: 16px 20px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #edf2f7;
+            text-align: left;
+            font-size: 0.95em;
+        }
+        th {
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            font-size: 0.8em;
+        }
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 14px;
+            padding: 20px;
+        }
+        .report-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 16px;
+            background: #fbfdff;
+        }
+        .report-card a {
+            color: #1d4ed8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .report-card a:hover {
+            text-decoration: underline;
+        }
+        .report-description {
+            margin-top: 8px;
+            color: #64748b;
+            line-height: 1.6;
+            font-size: 0.92em;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Channel Univariate Analysis</h1>
+    <p class="subtitle"><strong>Dataset:</strong> March, April, and May deposit files (combined, cleaned) &nbsp;|&nbsp; <strong>Generated:</strong> 2026-06-11 13:14</p>
+    <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Rows</div>
+                <div class="stat-value">1,771,026</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Valid Rows</div>
+                <div class="stat-value">1,771,026</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Unique Values</div>
+                <div class="stat-value">171</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Null Values</div>
+                <div class="stat-value">0</div>
+            </div>
+            
+            <div class="stat-card small">
+                <div class="stat-label">Mode</div>
+                <div class="stat-value">SKYDOOR28 (156,436)</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Mode Share</div>
+                <div class="stat-value">8.83%</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Top 10 Share</div>
+                <div class="stat-value">38.63%</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Median Rows / Value</div>
+                <div class="stat-value">5,423.0</div>
+            </div>
+            </div>
+    
+        <div class="chart-container">
+            <div class="section-header">
+                <div class="section-title">Distribution Charts</div>
+            </div>
+            <div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="ed256f33-8484-45c7-be7c-517fcbe92c47" class="plotly-graph-div" style="height:780px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("ed256f33-8484-45c7-be7c-517fcbe92c47")) {                    Plotly.newPlot(                        "ed256f33-8484-45c7-be7c-517fcbe92c47",                        [{"hovertemplate":"\u003cb\u003e%{x}\u003c\u002fb\u003e\u003cbr\u003eRows: %{y:,}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#4A90D9","line":{"color":"#2C5F9E","width":1}},"x":["SKYDOOR28","SKYDOOR18","BEST45","SKYDOOR16","SKYDOOR49","SKYDOOR29","SKYDOOR19","BEST46","DRIVE771","ORANGE31","DRIVE779","BATTLE7","BATTLE5","SILVER","SKYDOOR51"],"y":[156436,133473,69231,63600,59408,55740,45254,38798,31486,30730,29607,29031,24399,21685,21255],"type":"bar","xaxis":"x","yaxis":"y"},{"hovertemplate":"\u003cb\u003eRows per value:\u003c\u002fb\u003e %{x}\u003cbr\u003e\u003cb\u003eValues:\u003c\u002fb\u003e %{y}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#7FB3D3","line":{"color":"#5A8DB5","width":1}},"nbinsx":30,"x":{"dtype":"i4","bdata":"FGMCAGEJAgBvDgEAcPgAABDoAAC82QAAxrAAAI6XAAD+egAACngAAKdzAABncQAAT18AALVUAAAHUwAAwVIAAAhSAACAUAAA60wAALVMAACZTAAAJ0wAABVGAABbPgAAlDoAAKc5AADgNgAAOjUAAPU0AAC\u002fNAAAbzIAAPkxAAAVMQAAty8AAJ0tAACOLQAAoSwAAJ4sAACILAAA+CsAAPUqAACvKgAAiCoAALgpAABjKAAA+ycAAN4nAADbJwAAMicAAKMlAAABJQAAmyQAAGIkAABkIgAAWiIAAEggAADyHwAAnx8AAOceAADvHQAAnRwAAJkcAABsHAAAQhwAAN8bAABLGwAAQRsAACAbAAB0GgAAdBoAADsaAADqGQAA6BkAANwZAACJGQAAUhkAAE8ZAABhGAAAVxgAAPsXAACsFwAAgRcAAPkWAACEFgAALRYAAC8VAADaFAAAtxQAAHMUAABSFAAASxQAAG4TAAAUEwAA8BIAAOISAACPEgAAUhIAAAoSAADxEAAAvxAAAIQQAAA9EAAAIBAAAN4PAABtDwAAXQ8AAOcOAABzDgAARQ4AAPANAADMDQAAug0AAJkNAABjDQAALQ0AACQNAAAhDQAAFw0AAPYMAADRDAAAuwwAAFQMAABIDAAAQwwAAC8MAAAnDAAApQsAAJ8LAABkCwAATQsAAEkLAAAbCgAA3wkAADIJAADkCAAAIQgAAHwHAAA9BwAASwYAADUGAAAWBgAA7AUAAOcFAACIBQAAZQUAAEQFAAA+BQAAKwUAABkFAAAHBQAAmAQAAG8EAADiAwAA2gMAAMwDAACJAwAAbQMAAF0DAABKAwAABQMAAOMCAACsAgAAjwIAAIsCAAB3AgAAZgEAAGMBAAAHAAAABAAAAAMAAAACAAAA"},"type":"histogram","xaxis":"x2","yaxis":"y2"},{"fill":"tozeroy","fillcolor":"rgba(74, 144, 217, 0.18)","hovertemplate":"\u003cb\u003eRanked value:\u003c\u002fb\u003e %{x}\u003cbr\u003e\u003cb\u003eCumulative share:\u003c\u002fb\u003e %{y:.2f}%\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"#4A90D9","width":2},"mode":"lines","x":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171],"y":{"dtype":"f8","bdata":"jc2EZoiqIUBxCOLgml4wQJRG7f9URzRACnWD3aneN0C4WaNtZjk7QNm9+7kdXz5AlV9jCKF2QEDO1yAjCo9BQDIk4mGackJAloMe27NQQ0D4sFCGryZEQNTscnaB+ERAv0dKJtmoRUBpShBSk0VGQKlJ2+Qx30ZAczyV8054R0Bw14+3FRBIQNZfkTEHpUhAKvgZA1gzSUDZERnrRMFJQFjzqgT+TkpAXwI3MeTbSkAeYxUdj11LQFjnPUnu0EtATuAFSlA9TECQ9NXJ+6dMQK9avsaDDU1ATYTv9\u002f5vTUBQGrh++tFNQLAx9xuSM05AtsmeY+KQTkDPq55XWO1OQPnoknEoSE9A0ecx93CgT0D25cIQ1vRPQJNnurSPJFBA0GmXINlNUEDBtvfFH3dQQDHSGhFSoFBAce\u002fbJP\u002fIUEDV6OOdvPBQQP9b41Q5GFFAUJqN95E\u002fUUDMvsYtKmZRQANkS+2Gi1FAUHyXdoOwUUAWvNgrZdVRQJFGnRpE+lFADuxFsYYeUkA6YSQpWEFSQHCYtMKTY1JAl7u0\u002f3CFUkAganOBGadSQGe0YTTqxlJAXaIFp7HmUkBtc0TKjgRTQFn3Nl4cIlNAa+NZKV0\u002fU0AHYPG781tTQIhR7uCkd1NADnmzVR2SU0DcricXkqxTQDhFTTfdxlNAcvGgfAHhU0DqPuEryvpTQHecbvAJFFRAsp2xdEAtVECt1JhxWEZUQF9x50\u002fRXlRAEg42Lkp3VEAmNkNRjo9UQD4\u002fKYWHp1RAe89m336\u002fVECHirEfa9dUQLytLJcK71RAL9UOLXcGVUBXR3T84B1VQLWKiZ5uNFVAwXFUAPNKVUASodlFImFVQEUq4HUId1VA5YxA3saMVUDJ1OB1B6JVQCZ+gdDbtlVA750Br1\u002fLVUAGyO2S+N5VQGfhYdRC8lVAqrfRtGwFVkCPgOGsVxhWQDR\u002flR0kK1ZA09Z7FOo9VkAAAyqY409WQE7wOtmJYVZAEF5zzA5zVkDGfRDMhoRWQKQF3gKylVZAKScZy6SmVkCWSaP3VLdWQKcWNy8Bx1ZAIBZXJX\u002fWVkAeKI2GxuVWQHJ35jjM9FZAQO40F7cDV0CM0MvmZBJXQAsGtCyqIFdAonRYpeAuV0BCCCn0qTxXQMk5zvIHSldAcY9QYztXV0Bl1FoxIGRXQMyZjLHjcFdAbR\u002fSipZ9V0DN2rvcKopXQNzW4DmNlldAlxNBor2iV0BwMCu35a5XQP2XmAULu1dAOaO7EyfHV0A05IKaJNNXQDRpneb\u002f3ldAtLx62MbqV0C4v\u002fOALvZXQI3teQ+LAVhAOe3a\u002feIMWEBDNKdrKBhYQNiX0XJmI1hAR0s1NiwuWEAflJ9s7DhYQHzvHw52Q1hA69yOaOpNWECf2KwPW1hYQOaJa1S0YVhAQhFsF9ZqWEDowf\u002fOV3NYQN4I6V2Re1hAnUcohxaDWEAYk5wLA4pYQF7\u002f1Ue1kFhAIUtuo4eWWEBjZcmkRZxYQEIucfjmoVhA\u002fgxHcWGnWECQvfdJ16xYQBsB5j\u002f1sVhAiAHQ1PK2WEC0N17i0btYQEoD82KrwFhAq1LHT3PFWEBGYq+VKspYQBoyqzTRzlhA\u002fs2gIxHTWEAuvJgkK9dYQHhhq7TC2lhATiMc3lLeWEAYl\u002fET1uFYQPE5O04b5VhAtEBOoUboWECNgB0nY+tYQDJELBlu7lhACr4GNjnxWEAzMbHe5PNYQJuowqVd9lhAfEfJmLv4WECk9H7YFftYQCnpn5dd\u002fVhAxmtsyKj+WEAXObwy8f9YQB3giaz3\u002f1hA19HaX\u002fv\u002fWEAjh1cm\u002fv9YQAAAAAAAAFlA"},"type":"scatter","xaxis":"x3","yaxis":"y3"},{"boxpoints":false,"hovertemplate":"\u003cb\u003eRows per value:\u003c\u002fb\u003e %{y:,}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#E8A87C"},"y":{"dtype":"i4","bdata":"FGMCAGEJAgBvDgEAcPgAABDoAAC82QAAxrAAAI6XAAD+egAACngAAKdzAABncQAAT18AALVUAAAHUwAAwVIAAAhSAACAUAAA60wAALVMAACZTAAAJ0wAABVGAABbPgAAlDoAAKc5AADgNgAAOjUAAPU0AAC\u002fNAAAbzIAAPkxAAAVMQAAty8AAJ0tAACOLQAAoSwAAJ4sAACILAAA+CsAAPUqAACvKgAAiCoAALgpAABjKAAA+ycAAN4nAADbJwAAMicAAKMlAAABJQAAmyQAAGIkAABkIgAAWiIAAEggAADyHwAAnx8AAOceAADvHQAAnRwAAJkcAABsHAAAQhwAAN8bAABLGwAAQRsAACAbAAB0GgAAdBoAADsaAADqGQAA6BkAANwZAACJGQAAUhkAAE8ZAABhGAAAVxgAAPsXAACsFwAAgRcAAPkWAACEFgAALRYAAC8VAADaFAAAtxQAAHMUAABSFAAASxQAAG4TAAAUEwAA8BIAAOISAACPEgAAUhIAAAoSAADxEAAAvxAAAIQQAAA9EAAAIBAAAN4PAABtDwAAXQ8AAOcOAABzDgAARQ4AAPANAADMDQAAug0AAJkNAABjDQAALQ0AACQNAAAhDQAAFw0AAPYMAADRDAAAuwwAAFQMAABIDAAAQwwAAC8MAAAnDAAApQsAAJ8LAABkCwAATQsAAEkLAAAbCgAA3wkAADIJAADkCAAAIQgAAHwHAAA9BwAASwYAADUGAAAWBgAA7AUAAOcFAACIBQAAZQUAAEQFAAA+BQAAKwUAABkFAAAHBQAAmAQAAG8EAADiAwAA2gMAAMwDAACJAwAAbQMAAF0DAABKAwAABQMAAOMCAACsAgAAjwIAAIsCAAB3AgAAZgEAAGMBAAAHAAAABAAAAAMAAAACAAAA"},"type":"box","xaxis":"x4","yaxis":"y4"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.44],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4},"yaxis":{"anchor":"x","domain":[0.575,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4},"xaxis2":{"anchor":"y2","domain":[0.56,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4},"yaxis2":{"anchor":"x2","domain":[0.575,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4},"xaxis3":{"anchor":"y3","domain":[0.0,0.44],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4},"yaxis3":{"anchor":"x3","domain":[0.0,0.425],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4},"xaxis4":{"anchor":"y4","domain":[0.56,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":""},"showticklabels":false},"yaxis4":{"anchor":"x4","domain":[0.0,0.425],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Rows per value"},"type":"log"},"annotations":[{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eTop 15 Values by Row Count\u003c\u002fb\u003e","x":0.22,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eRows per Value Distribution\u003c\u002fb\u003e","x":0.78,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eCumulative Share by Ranked Value\u003c\u002fb\u003e","x":0.22,"xanchor":"center","xref":"paper","y":0.425,"yanchor":"bottom","yref":"paper"},{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eRows per Value Boxplot\u003c\u002fb\u003e","x":0.78,"xanchor":"center","xref":"paper","y":0.425,"yanchor":"bottom","yref":"paper"}],"title":{"text":""},"font":{"family":"Segoe UI, -apple-system, sans-serif","size":12,"color":"#333333"},"margin":{"l":60,"r":30,"t":40,"b":50},"showlegend":false,"height":780,"paper_bgcolor":"#FAFAFA","plot_bgcolor":"#FAFAFA"},                        {"responsive": true}                    )                };            </script>        </div>
+        </div>
+        
+    
+    
+    <div class="observations">
+        <h2>Key Observations</h2>
+        <ul>
+            <li><span class="badge">Observation</span> The most common value is SKYDOOR28, accounting for 8.83% of non-null rows.</li><li><span class="badge">Observation</span> The top 10 values contribute 38.63% of all non-null rows, which shows how concentrated the field is.</li>
+        </ul>
+    </div>
+    
+</body>
+</html>

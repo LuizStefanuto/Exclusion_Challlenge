@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channel vs Approved Bivariate Analysis</title>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px;
+            background: #f0f2f5;
+            color: #1a1a2e;
+        }
+        h1 {
+            color: #1a1a2e;
+            font-size: 1.85em;
+            font-weight: 600;
+            margin-bottom: 6px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #4A90D9;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 16px 18px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-left: 4px solid #4A90D9;
+        }
+        .stat-card.small .stat-value {
+            font-size: 1.05em;
+        }
+        .stat-label {
+            color: #888;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .stat-value {
+            color: #1a1a2e;
+            font-size: 1.35em;
+            font-weight: 600;
+            line-height: 1.25;
+            word-break: break-word;
+        }
+        .panel, .observations {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #4A90D9;
+            border-radius: 2px;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.05em;
+        }
+        .table-wrap {
+            padding: 18px 20px 22px 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.94em;
+        }
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        th {
+            color: #555;
+            font-weight: 600;
+            background: #fafbfd;
+        }
+        .observations {
+            padding: 20px 24px;
+        }
+        .observations h2 {
+            color: #333;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0 0 12px 0;
+        }
+        .observations ul {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.9;
+        }
+        .badge {
+            display: inline-block;
+            background: #EEF4FA;
+            color: #4A90D9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Channel vs Approved Bivariate Analysis</h1>
+    <p class="subtitle"><strong>Dataset:</strong> March, April, and May deposit files (combined, cleaned) &nbsp;|&nbsp; <strong>Generated:</strong> 2026-06-12 11:32 &nbsp;|&nbsp; <strong>Scope:</strong> Raw observed approval rate by channel in the cleaned dataset.</p>
+    <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Rows Analyzed</div>
+                <div class="stat-value">1,771,026</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Distinct Channels</div>
+                <div class="stat-value">171</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Overall Approval Rate</div>
+                <div class="stat-value">61.877%</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Median Approval Rate</div>
+                <div class="stat-value">61.417%</div>
+            </div>
+            
+            <div class="stat-card small">
+                <div class="stat-label">Top Channel</div>
+                <div class="stat-value">SKYDOOR28</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Top Value Rows</div>
+                <div class="stat-value">156,436</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Top Value Approval Rate</div>
+                <div class="stat-value">61.334%</div>
+            </div>
+            
+            <div class="stat-card small">
+                <div class="stat-label">Highest Approval Rate Channel</div>
+                <div class="stat-value">SKYDOOR16</div>
+            </div>
+            </div>
+    <div class="panel">
+        <div class="section-header">
+            <div class="section-title">Bivariate Charts</div>
+        </div>
+        <div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="a41e06d2-8fc3-44e6-88e8-6a258daf35bb" class="plotly-graph-div" style="height:620px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("a41e06d2-8fc3-44e6-88e8-6a258daf35bb")) {                    Plotly.newPlot(                        "a41e06d2-8fc3-44e6-88e8-6a258daf35bb",                        [{"customdata":{"dtype":"i4","bdata":"tUwAAKwwAADrTAAAFyUAAIBQAAA1NwAACFIAAOkbAADBUgAARDsAAAdTAAD1JwAAtVQAAII5AABPXwAAXEQAAGdxAADTTQAAp3MAABJKAAAKeAAAkFYAAP56AAA4TgAAjpcAAEZMAADGsAAAnnMAALzZAADhcwAAEOgAAIKCAABw+AAAGsQAAG8OAQDaggAAYQkCAP11AQAUYwIAzHYBAA==","shape":"20, 2"},"hovertemplate":"\u003cb\u003eChannel:\u003c\u002fb\u003e %{y}\u003cbr\u003e\u003cb\u003eApproval Rate:\u003c\u002fb\u003e %{x:.3f}%\u003cbr\u003e\u003cb\u003eRows:\u003c\u002fb\u003e %{customdata[0]:,}\u003cbr\u003e\u003cb\u003ePositive rows:\u003c\u002fb\u003e %{customdata[1]:,}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#4A90D9"},"orientation":"h","text":["63.45%","48.22%","68.58%","34.02%","71.62%","48.13%","67.89%","71.72%","68.63%","64.05%","72.11%","63.60%","50.33%","65.40%","53.22%","56.24%","78.93%","48.39%","71.73%","61.33%"],"textposition":"outside","x":{"dtype":"f8","bdata":"+tb+lM+5T0CIYD3tKBxIQJGFLGQhJVFAMQzDMAwDQUAG2\u002fMseOdRQAAhVNEEEEhAsNdazfn4UEB5N9cgWu5RQFBQtOAaKFFAxtZfLOwCUEAD2dMRKgdSQOvfyrxazE9AoJ9AKeYpSUBRFzHP3VlQQJV2RxIznEpAYIqp5X0eTEB+DqkJxrtTQKDNuCljMUhAj82aWcLuUUBYgZD0tqpOQA=="},"y":["DRIVE537","PEACH6","SKYDOOR43","BULL3","ATM50","SKYDOOR51","SILVER","BATTLE5","BATTLE7","DRIVE779","ORANGE31","DRIVE771","BEST46","SKYDOOR19","SKYDOOR29","SKYDOOR49","SKYDOOR16","BEST45","SKYDOOR18","SKYDOOR28"],"type":"bar","xaxis":"x","yaxis":"y"},{"customdata":[["SKYDOOR28",95948],["SKYDOOR18",95741],["BEST45",33498],["SKYDOOR16",50202],["SKYDOOR49",33410],["SKYDOOR29",29665],["SKYDOOR19",29598],["BEST46",19526],["DRIVE771",20024],["ORANGE31",22160],["DRIVE779",18962],["BATTLE7",19923],["BATTLE5",17500],["SILVER",14722],["SKYDOOR51",10229],["ATM50",15172],["BULL3",7145],["SKYDOOR43",14133],["PEACH6",9495],["DRIVE537",12460],["BATTLE2",12320],["DRIVE711",12644],["DRIVE794",12920],["PEACH9",10696],["SKYDOOR50",6848],["DRIVE547",8276],["ORANGE23",9695],["SILVER9",9799],["SKYDOOR47",6835],["PEACH",7795],["SKYDOOR45",6143],["DRIVE635",7856],["CCCOIN13",6893],["DRIVE709",8673],["BATTLE",8367],["DRIVE656",8879],["DRIVE725",8262],["DRIVE791",8614],["BATTLE12",6728],["PEACH8",5486],["DRIVE712",6751],["DRIVE787",7415],["DRIVE751",7974],["PEACH5",7533],["DRIVE772",5532],["DRIVE538",5500],["DRIVE741",6364],["DRIVE749",7158],["DRIVE738",7315],["QUEEN6",6279],["PEACH7",5043],["DRIVE727",6432],["BULL4",1774],["DRIVE454",6728],["DRIVE695",6069],["SKYDOOR52",3481],["DRIVE205",5468],["BEST35",5280],["BEST48",4897],["SILVER1",4808],["QUEEN8",5037],["BEST19",4545],["MAYDAY25",4885],["BATTLE6",4469],["DRIVE796",4535],["DRIVE784",4994],["DRIVE795",4131],["DRIVE788",4313],["BATTLE11",2492],["DRIVE722",3866],["PEACH1",3536],["ORANGE14",4395],["BATTLE14",4683],["DRIVE721",3667],["BULL",3401],["SKYDOOR46",2439],["DRIVE629",3763],["DRIVE632",3303],["QUEEN5",4181],["PURPLE",3327],["QUEEN10",4132],["SKYDOOR17",3887],["BEST37",4033],["SKYDOOR48",2412],["DRIVE597",2948],["DRIVE763",3357],["DRIVE759",3450],["SILVER10",3470],["DRIVE658",2949],["DRIVE643",2670],["BATTLE3",2850],["DRIVE753",3225],["ATM35",3598],["SILVER8",3707],["DRIVE204",3229],["DRIVE355",2725],["PURPLE1",2033],["SILVER3",3159],["BEST43",2853],["QUEEN9",2769],["DRIVE565",2632],["DRIVE757",2700],["DRIVE761",2370],["ATM51",2623],["ORANGE22",2163],["DRIVE710",2466],["PURPLE2",2021],["SILVER5",2475],["DRIVE755",2374],["BATTLE8",1889],["ORANGE32",1694],["BEST40",2281],["PURPLE3",1663],["BULL2",1998],["DRIVE650",2009],["DRIVE490",2086],["BEST41",1927],["DRIVE364",1952],["DRIVE750",2152],["OAK",2175],["DRIVE769",2124],["BATTLE15",2002],["BULL1",1243],["DRIVE739",1938],["BATTLE1",1942],["DRIVE728",1891],["DRIVE347",1704],["DRIVE765",1887],["OIL1",1785],["DRIVE752",1821],["BATTLE4",1983],["DRIVE786",1539],["DRIVE726",1552],["DRIVE799",1432],["DRIVE657",1597],["ATM47",1488],["DRIVE398",1070],["DRIVE455",1321],["DRIVE792",964],["DRIVE585",925],["QUEEN11",886],["DRIVE785",865],["SILVER6",876],["MAYDAY1",978],["OIL4",891],["SILVER7",938],["OAK1",691],["ORANGE33",696],["DRIVE797",652],["WINE",785],["OIL2",720],["CCCOIN12",871],["DRIVE760",440],["MAYDAY2",562],["DRIVE764",490],["DRIVE758",473],["BEST39",436],["DRIVE793",487],["DRIVE767",294],["DRIVE290",432],["PEACH10",361],["DRIVE754",339],["DRIVE770",342],["BEST44",451],["FIRE5",249],["DRIVE766",158],["FIRE1",174],["BATTLE9",0],["BLUE118",0],["SILVER11",0],["SILVER12",0]],"hovertemplate":"\u003cb\u003eChannel:\u003c\u002fb\u003e %{customdata[0]}\u003cbr\u003e\u003cb\u003eRows:\u003c\u002fb\u003e %{x:,}\u003cbr\u003e\u003cb\u003eApproval Rate:\u003c\u002fb\u003e %{y:.3f}%\u003cbr\u003e\u003cb\u003ePositive rows:\u003c\u002fb\u003e %{customdata[1]:,}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#E8A87C","opacity":0.38,"size":7},"mode":"markers","x":{"dtype":"i4","bdata":"FGMCAGEJAgBvDgEAcPgAABDoAAC82QAAxrAAAI6XAAD+egAACngAAKdzAABncQAAT18AALVUAAAHUwAAwVIAAAhSAACAUAAA60wAALVMAACZTAAAJ0wAABVGAABbPgAAlDoAAKc5AADgNgAAOjUAAPU0AAC\u002fNAAAbzIAAPkxAAAVMQAAty8AAJ0tAACOLQAAoSwAAJ4sAACILAAA+CsAAPUqAACvKgAAiCoAALgpAABjKAAA+ycAAN4nAADbJwAAMicAAKMlAAABJQAAmyQAAGIkAABkIgAAWiIAAEggAADyHwAAnx8AAOceAADvHQAAnRwAAJkcAABsHAAAQhwAAN8bAABLGwAAQRsAACAbAAB0GgAAdBoAADsaAADqGQAA6BkAANwZAACJGQAAUhkAAE8ZAABhGAAAVxgAAPsXAACsFwAAgRcAAPkWAACEFgAALRYAAC8VAADaFAAAtxQAAHMUAABSFAAASxQAAG4TAAAUEwAA8BIAAOISAACPEgAAUhIAAAoSAADxEAAAvxAAAIQQAAA9EAAAIBAAAN4PAABtDwAAXQ8AAOcOAABzDgAARQ4AAPANAADMDQAAug0AAJkNAABjDQAALQ0AACQNAAAhDQAAFw0AAPYMAADRDAAAuwwAAFQMAABIDAAAQwwAAC8MAAAnDAAApQsAAJ8LAABkCwAATQsAAEkLAAAbCgAA3wkAADIJAADkCAAAIQgAAHwHAAA9BwAASwYAADUGAAAWBgAA7AUAAOcFAACIBQAAZQUAAEQFAAA+BQAAKwUAABkFAAAHBQAAmAQAAG8EAADiAwAA2gMAAMwDAACJAwAAbQMAAF0DAABKAwAABQMAAOMCAACsAgAAjwIAAIsCAAB3AgAAZgEAAGMBAAAHAAAABAAAAAMAAAACAAAA"},"y":{"dtype":"f8","bdata":"WIGQ9LaqTkCPzZpZwu5RQKDNuCljMUhAfg6pCca7U0BgiqnlfR5MQJV2RxIznEpAURcxz91ZUECgn0Ap5ilJQOvfyrxazE9AA9nTESoHUkDG1l8s7AJQQFBQtOAaKFFAeTfXIFruUUCw11rN+fhQQAAhVNEEEEhABtvzLHjnUUAxDMMwDANBQJGFLGQhJVFAiGA97SgcSED61v6Uz7lPQLrwYYIFak9AReow1eM2UEDRajp64gBSQJqfYBVRwFBA+cA+dS\u002fVRkApuCFYgQlMQLC+D0PbQFFAfMdfx376UUD4Y8paWDVJQKhREzss3UxAv64dyS\u002fKR0ADExpxTLROQE3qxAPrbUtANiMQ8i7AUUBTYvfc1elRQBJzJf22CFNArw\u002fEkioUUkDBwIyEndpSQCS4j+A+gk1AUDWljIVeSECU5PEl2rFOQGo+6OkA91BAKfd+TSRPUkAUoQhFKKJRQP18GEHJwEpALm95y1veSkB5cKJGgC1PQLjNuzn5iVFAzgf\u002firw5UkBAqUpCy0pQQI2IQz0lnkpAqNUJSMkoUUB8X+e\u002f7QszQFwjUCfeGlNAV7dfZNRAUUB6dFq7rA9FQBg3ECUwt1BAkNCjvG1OUEC8UJfkWPNOQPiIxEscX09AeGvhpu0wUUA4NT6VdApPQMamDc3dyFBAJ+CBNYzjTkCJmw9Tq8dPQJs\u002fqDBw3lFAtlmz6LqaTUDs+HX8Og5PQIWFsfI3ZkJABDTI5EOLTECpdGTPQFRKQKAZZNP5j1BA9ooWAy6nUUAWyXSbRbJLQEv0EjxyA0pAW0iMkErQQkCS5VLSOwpNQIz6pIpMdkpADyUWI2bGUEDaR78v5RhLQP\u002fO5RDUC1FAZNgiTWsmUEA0ht3X6SRRQPy2usVH7ERAr7UvFuT2SUA7AfqwlfNOQNAUY3NhKFBAI1CcdtFbUECH6J9eiypMQEEiBObHqUlA9QLM\u002fCJuS0AOTwDrkzVQQGf3FOzSalJARFAvuLodU0AyW1M9DbNQQKWjLb+crUxA5vK3c3ysRUAf+zvH\u002fxlRQLmMsGEZclBAtrGgw8wlUEDYgGxANiBPQLwRYAjYPFBAZk1ZU9a0TEDuUeoTviRQQF+XxXj9YktAV58wGaFZT0DOR14F0HxKQBu8lgo9ulBAaKTeKzY\u002fUEDGLEd+rnhKQD5p10MS+0dAi4mQoFo6UEC0mUZABuNHQMVfatCeJk1A+hLeGtbHTUBySIK0NwFPQOmrT6rEqkxAXIkWjykgTUDDfSMu7zZQQNPo2OSbklBAK+74bRhLUEDvY5wmpbdPQCrA0U6PxENAVvhJ56TeTkCxZSfguyFPQGRkZGRkZE5Ad2z9Rb2UTEBt27Zt27ZPQNPoERVkm05AXD8EEPd4T0BWatBQ8ChRQDrhFFewvk1Ap0n3aVa1TkBXnmh3k2pOQOYJOnevilFAzrby60LgUUCUVmK4OexLQKFFqBaM0lFANZzbjlfrTUCO3OsoOhtNQGHlkmMTb0xAT+SqGW6HTEC0Savrx\u002fxMQErdl8dWRFFAr31Shy4hUEC5TCuXaWVRQMhKRJPCvklAkxLgbslNSkDdBmWFGPtIQCTCUMZNf05Ap+DlFLycTkBakICaXS9TQGUNRvj+IUZAQWWRiL1\u002fTEC8vw7GrDRJQCv9OdvxIUpAZHejEIPbSEBtr1ob9EdMQO5FydFbdUFA30ainm3xS0AyBRsmxmxIQH4E9xHcx0hA+oDq2FsbSkAtR0FOy1FRQC6pWbUHu0NAanKQeSkRRkA6kGiFzYFIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"type":"scatter","xaxis":"x2","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.44],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Approval Rate (%)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Channel"}},"xaxis2":{"anchor":"y2","domain":[0.56,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Rows"},"type":"log"},"yaxis2":{"anchor":"x2","domain":[0.0,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Approval Rate (%)"}},"annotations":[{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eTop 20 Channels by Rows: Approval Rate\u003c\u002fb\u003e","x":0.22,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eRows vs Approval Rate\u003c\u002fb\u003e","x":0.78,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"title":{"text":""},"font":{"family":"Segoe UI, -apple-system, sans-serif","size":12,"color":"#333333"},"margin":{"l":70,"r":30,"t":40,"b":50},"showlegend":false,"height":620,"paper_bgcolor":"#FAFAFA","plot_bgcolor":"#FAFAFA"},                        {"responsive": true}                    )                };            </script>        </div>
+    </div>
+    
+    <div class="panel">
+        <div class="section-header">
+            <div class="section-title">Top Channels by Rows</div>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Channel</th><th>Rows</th><th>Approved Rows</th><th>Volume Share</th><th>Approval Rate</th><th>Approval Rate vs Overall</th></tr></thead>
+                <tbody><tr><td>SKYDOOR28</td><td>156,436</td><td>95,948</td><td>8.83%</td><td>61.334%</td><td>0.99x</td></tr><tr><td>SKYDOOR18</td><td>133,473</td><td>95,741</td><td>7.54%</td><td>71.731%</td><td>1.16x</td></tr><tr><td>BEST45</td><td>69,231</td><td>33,498</td><td>3.91%</td><td>48.386%</td><td>0.78x</td></tr><tr><td>SKYDOOR16</td><td>63,600</td><td>50,202</td><td>3.59%</td><td>78.934%</td><td>1.28x</td></tr><tr><td>SKYDOOR49</td><td>59,408</td><td>33,410</td><td>3.35%</td><td>56.238%</td><td>0.91x</td></tr><tr><td>SKYDOOR29</td><td>55,740</td><td>29,665</td><td>3.15%</td><td>53.220%</td><td>0.86x</td></tr><tr><td>SKYDOOR19</td><td>45,254</td><td>29,598</td><td>2.56%</td><td>65.404%</td><td>1.06x</td></tr><tr><td>BEST46</td><td>38,798</td><td>19,526</td><td>2.19%</td><td>50.327%</td><td>0.81x</td></tr><tr><td>DRIVE771</td><td>31,486</td><td>20,024</td><td>1.78%</td><td>63.597%</td><td>1.03x</td></tr><tr><td>ORANGE31</td><td>30,730</td><td>22,160</td><td>1.74%</td><td>72.112%</td><td>1.17x</td></tr><tr><td>DRIVE779</td><td>29,607</td><td>18,962</td><td>1.67%</td><td>64.046%</td><td>1.04x</td></tr><tr><td>BATTLE7</td><td>29,031</td><td>19,923</td><td>1.64%</td><td>68.627%</td><td>1.11x</td></tr><tr><td>BATTLE5</td><td>24,399</td><td>17,500</td><td>1.38%</td><td>71.724%</td><td>1.16x</td></tr><tr><td>SILVER</td><td>21,685</td><td>14,722</td><td>1.22%</td><td>67.890%</td><td>1.10x</td></tr><tr><td>SKYDOOR51</td><td>21,255</td><td>10,229</td><td>1.20%</td><td>48.125%</td><td>0.78x</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+    
+    
+    <div class="observations">
+        <h2>Key Observations</h2>
+        <ul><li><span class="badge">Observation</span> The largest channel is SKYDOOR28 with 156,436 rows and an observed approval rate of 61.334%.</li><li><span class="badge">Observation</span> The median approval rate across 171 channels is 61.417%, while the overall dataset rate is 61.877%.</li><li><span class="badge">Observation</span> The scatterplot shows how much of the rate spread is happening in thin values versus higher-volume values.</li><li><span class="badge">Observation</span> The top-20 chart is ordered by rows, so it prioritizes operationally relevant values rather than just extreme rates from tiny samples.</li></ul>
+    </div>
+    
+</body>
+</html>

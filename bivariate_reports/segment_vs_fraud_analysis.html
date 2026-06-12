@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segment vs Fraud Bivariate Analysis</title>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px;
+            background: #f0f2f5;
+            color: #1a1a2e;
+        }
+        h1 {
+            color: #1a1a2e;
+            font-size: 1.85em;
+            font-weight: 600;
+            margin-bottom: 6px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #4A90D9;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 16px 18px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-left: 4px solid #4A90D9;
+        }
+        .stat-card.small .stat-value {
+            font-size: 1.05em;
+        }
+        .stat-label {
+            color: #888;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .stat-value {
+            color: #1a1a2e;
+            font-size: 1.4em;
+            font-weight: 600;
+            line-height: 1.25;
+            word-break: break-word;
+        }
+        .chart-container, .table-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #4A90D9;
+            border-radius: 2px;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.05em;
+        }
+        .observations {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            margin: 20px 0;
+        }
+        .observations h2 {
+            color: #333;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0 0 12px 0;
+        }
+        .observations ul {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.9;
+        }
+        .badge {
+            display: inline-block;
+            background: #EEF4FA;
+            color: #4A90D9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #edf2f7;
+            text-align: left;
+            font-size: 0.95em;
+        }
+        th {
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            font-size: 0.8em;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Segment vs Fraud Bivariate Analysis</h1>
+    <p class="subtitle"><strong>Dataset:</strong> March, April, and May deposit files (combined, cleaned) &nbsp;|&nbsp; <strong>Generated:</strong> 2026-06-11 10:48 &nbsp;|&nbsp; <strong>Scope:</strong> Raw observed fraud by client segment in the cleaned dataset.</p>
+    <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Rows Analyzed</div>
+                <div class="stat-value">1,771,026</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Fraud Rows</div>
+                <div class="stat-value">16,613</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Overall Fraud Rate</div>
+                <div class="stat-value">0.938%</div>
+            </div>
+            
+            <div class="stat-card small">
+                <div class="stat-label">Highest Fraud Segment</div>
+                <div class="stat-value">Segment 4 (1.943%)</div>
+            </div>
+            
+            <div class="stat-card small">
+                <div class="stat-label">Lowest Fraud Segment</div>
+                <div class="stat-value">Segment 1 (0.492%)</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Segment 4 vs Segment 1</div>
+                <div class="stat-value">3.95x</div>
+            </div>
+            </div>
+    <div class="chart-container">
+        <div class="section-header">
+            <div class="section-title">Bivariate Charts</div>
+        </div>
+        <div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="bfc77d3b-8e3d-4132-b5b2-7366c598f66a" class="plotly-graph-div" style="height:520px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("bfc77d3b-8e3d-4132-b5b2-7366c598f66a")) {                    Plotly.newPlot(                        "bfc77d3b-8e3d-4132-b5b2-7366c598f66a",                        [{"hovertemplate":"\u003cb\u003e%{x}\u003c\u002fb\u003e\u003cbr\u003e\u003cb\u003eFraud rate:\u003c\u002fb\u003e %{y:.3f}%\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#E8A87C"},"name":"Fraud rate","text":["0.492%","0.860%","1.630%","1.943%"],"textposition":"outside","x":["Segment 1","Segment 2","Segment 3","Segment 4"],"y":{"dtype":"f8","bdata":"bKarLLJ83z9ih0PsdIHrP5bI8cU7E\u002fo\u002frKOsbL4X\u002fz8="},"type":"bar","xaxis":"x","yaxis":"y"},{"hovertemplate":"\u003cb\u003e%{x}\u003c\u002fb\u003e\u003cbr\u003e\u003cb\u003eFraud rate vs overall:\u003c\u002fb\u003e %{y:.2f}x\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#4A90D9"},"name":"Fraud rate vs overall","text":["0.52x","0.92x","1.74x","2.07x"],"textposition":"outside","x":["Segment 1","Segment 2","Segment 3","Segment 4"],"y":{"dtype":"f8","bdata":"2233p4vI4D+RtdNliFLtP\u002fQUpAMfzPs\u002foP1FULySAEA="},"type":"bar","xaxis":"x2","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.44],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Segment"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Observed fraud rate (%)"}},"xaxis2":{"anchor":"y2","domain":[0.56,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Segment"}},"yaxis2":{"anchor":"x2","domain":[0.0,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Multiple of overall fraud rate"}},"annotations":[{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eObserved Fraud Rate by Segment\u003c\u002fb\u003e","x":0.22,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eFraud Rate Relative to Overall\u003c\u002fb\u003e","x":0.78,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"title":{"text":""},"font":{"family":"Segoe UI, -apple-system, sans-serif","size":12,"color":"#333333"},"margin":{"l":60,"r":30,"t":40,"b":50},"legend":{"orientation":"h","yanchor":"bottom","y":1.02,"xanchor":"right","x":1},"showlegend":true,"height":520,"paper_bgcolor":"#FAFAFA","plot_bgcolor":"#FAFAFA"},                        {"responsive": true}                    )                };            </script>        </div>
+    </div>
+    
+    <div class="table-container">
+        <div class="section-header">
+            <div class="section-title">Segment Fraud Summary</div>
+        </div>
+        <table>
+            <thead>
+                <tr><th>Segment</th><th>Rows</th><th>Volume Share</th><th>Fraud Rows</th><th>Fraud Share</th><th>Fraud Rate</th><th>Fraud Rate vs Overall</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>792,909</td><td>44.77%</td><td>3,901</td><td>23.48%</td><td>0.492%</td><td>0.52x</td></tr><tr><td>2</td><td>516,664</td><td>29.17%</td><td>4,441</td><td>26.73%</td><td>0.860%</td><td>0.92x</td></tr><tr><td>3</td><td>222,066</td><td>12.54%</td><td>3,619</td><td>21.78%</td><td>1.630%</td><td>1.74x</td></tr><tr><td>4</td><td>239,387</td><td>13.52%</td><td>4,652</td><td>28.00%</td><td>1.943%</td><td>2.07x</td></tr>
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <div class="observations">
+        <h2>Key Observations</h2>
+        <ul>
+            <li><span class="badge">Observation</span> Observed fraud rate rises steadily from 0.492% in Segment 1 to 1.943% in Segment 4.</li><li><span class="badge">Observation</span> Segment 4&#x27;s observed fraud rate is 3.95x Segment 1&#x27;s rate.</li><li><span class="badge">Observation</span> This confirms that client segmentation is also a material driver of fraud outcomes.</li><li><span class="badge">Observation</span> These are full-dataset observed fraud rates, so later versions can add maturity filters for a cleaner segment comparison.</li>
+        </ul>
+    </div>
+    
+</body>
+</html>

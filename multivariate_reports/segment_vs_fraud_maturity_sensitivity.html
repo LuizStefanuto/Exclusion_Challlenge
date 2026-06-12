@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segment vs Fraud Maturity Sensitivity</title>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px;
+            background: #f0f2f5;
+            color: #1a1a2e;
+        }
+        h1 {
+            color: #1a1a2e;
+            font-size: 1.85em;
+            font-weight: 600;
+            margin-bottom: 6px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #4A90D9;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 16px 18px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-left: 4px solid #4A90D9;
+        }
+        .stat-card.small .stat-value {
+            font-size: 1.05em;
+        }
+        .stat-label {
+            color: #888;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .stat-value {
+            color: #1a1a2e;
+            font-size: 1.4em;
+            font-weight: 600;
+            line-height: 1.25;
+            word-break: break-word;
+        }
+        .chart-container, .table-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #4A90D9;
+            border-radius: 2px;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.05em;
+        }
+        .observations {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            margin: 20px 0;
+        }
+        .observations h2 {
+            color: #333;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0 0 12px 0;
+        }
+        .observations ul {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.9;
+        }
+        .badge {
+            display: inline-block;
+            background: #EEF4FA;
+            color: #4A90D9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #edf2f7;
+            text-align: left;
+            font-size: 0.95em;
+        }
+        th {
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            font-size: 0.8em;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Segment vs Fraud Maturity Sensitivity</h1>
+    <p class="subtitle"><strong>Dataset:</strong> March, April, and May deposit files (combined, cleaned) &nbsp;|&nbsp; <strong>Generated:</strong> 2026-06-11 11:47 &nbsp;|&nbsp; <strong>Method:</strong> For each cutoff, remove the most recent transaction days and recompute fraud rates by segment.</p>
+    <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">As-Of Date</div>
+                <div class="stat-value">2026-06-01</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Cutoff Range</div>
+                <div class="stat-value">0 to 60 days</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Rows at 0 Days</div>
+                <div class="stat-value">1,771,026</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Rows at 60 Days</div>
+                <div class="stat-value">647,778</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Overall Fraud at 0 Days</div>
+                <div class="stat-value">0.938%</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Overall Fraud at 60 Days</div>
+                <div class="stat-value">1.204%</div>
+            </div>
+            </div>
+    <div class="chart-container">
+        <div class="section-header">
+            <div class="section-title">Bivariate Charts</div>
+        </div>
+        <div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="352d4ae0-0776-4d77-b16b-e017b2a6185a" class="plotly-graph-div" style="height:720px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("352d4ae0-0776-4d77-b16b-e017b2a6185a")) {                    Plotly.newPlot(                        "352d4ae0-0776-4d77-b16b-e017b2a6185a",                        [{"hovertemplate":"\u003cb\u003eCutoff:\u003c\u002fb\u003e %{x} days\u003cbr\u003e\u003cb\u003eSegment 1:\u003c\u002fb\u003e %{y:.3f}%\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"#4A90D9","width":3},"mode":"lines","name":"Segment 1","x":{"dtype":"i1","bdata":"AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PA=="},"y":{"dtype":"f8","bdata":"bKarLLJ83z9spqsssnzfPyEJDO4O0t8\u002fYN310EAe4D9VxwzKS1DgP7HEfMD9feA\u002f5Hk9t2Op4D8lCLfpSczgP2P0XY107+A\u002f6zSAXhAg4T\u002fKROXPuFDhP\u002f915kZBieE\u002fNMVl3Ri+4T9U7gIY7NzhP0KT1y7ZB+I\u002fHoGYwOAX4j+wAqT+5zniP5Q9UQlQY+I\u002fNqYaup+W4j\u002fD0qVlLrziPzzEe2QLyeI\u002ffVYzJjvw4j8sGSllJf\u002fiP6s3Wxt7EeM\u002fNqft7jBF4z9aGDfET4HjP\u002ffKrQuuteM\u002fi31aFV\u002fE4z+cFhUIXNHjP67AE1Ru2OM\u002fDdJ5qQj44z\u002fsjiTPLhPkP3fk07K9QeQ\u002fkqXtM\u002fJm5D+9AcA8rYbkP538146fpeQ\u002fAfxq70Cs5D8n8VEyI8DkP6efiEfs6+Q\u002fFLTmEU0j5T\u002fotA4QEzvlPx4+ZiLxXuU\u002f\u002fTUCW\u002fpN5T\u002f929Oj92\u002flP9ImbOJmouU\u002fEyC+QGid5T+aXm9Iu4XlP1RbIKfjhuU\u002fmA4GBMiK5T+rOJ+w5LPlP+tSXacw8eU\u002fPoMioWUb5j\u002f7Mx0fMgbmPzF1Kw0+KuY\u002f4d6Fgbcy5j\u002fkO3U68kDmPxX6QhfOg+Y\u002f0A7Psyig5j\u002fMcCP+OrHmP9jzPX\u002fLpuY\u002flB8QGctH5j8="},"type":"scatter","xaxis":"x","yaxis":"y"},{"hovertemplate":"\u003cb\u003eCutoff:\u003c\u002fb\u003e %{x} days\u003cbr\u003e\u003cb\u003eSegment 2:\u003c\u002fb\u003e %{y:.3f}%\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"#E8A87C","width":3},"mode":"lines","name":"Segment 2","x":{"dtype":"i1","bdata":"AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PA=="},"y":{"dtype":"f8","bdata":"YodD7HSB6z9zjW9peIHrP20OnPhRwus\u002fIw1oIBIQ7D\u002fnpBgT1mHsP6sPgzKQpew\u002forwQYMfa7D+s\u002fPAaFRbtP4xfXHpeTu0\u002fP\u002fa76Z137T+X0AaLubTtP3b4vq+jCu4\u002fkpSKLcJT7j8BjgyaeIDuP1CJeerrt+4\u002f7lszBrDm7j8uUloTtA7vP7yZdgyPMO8\u002fNo2SqkBI7z8KYlO6SmTvP6esISTepO8\u002fXihJpmDj7z\u002fKCpvsZQbwP2acKBUaI\u002fA\u002f14ZNki1B8D+wnKZm+GjwP3vqDb8PivA\u002f+qaaMoej8D9L6WA0DLjwP87XG0Erz\u002fA\u002fOwfx7tjo8D\u002f8DzSCZQXxP+F21IZoBfE\u002f1y7VYlAP8T+YdwaNfwnxP26rxr\u002fzHPE\u002f9XzIb9Ao8T+DLqZ4NzTxP9vMaiPmS\u002fE\u002fYctCdrxk8T\u002fdk6g+h1rxPykcBelCRfE\u002fH1F7819B8T9UtdO\u002fBFPxPyblpmb4TPE\u002fniuNgGpf8T+fDLMemGLxP7G3gHQMb\u002fE\u002fx3kvrPVy8T8d2DJ234DxP2mAMre\u002fdfE\u002fsNF+sCls8T8YNc9k3XbxPw57VTwIfPE\u002fi42vk7Oz8T8TeFM89NTxP0BAt+ms8vE\u002fJe\u002fQaK7\u002f8T\u002fEoOXYbfLxPyOsW0uy7\u002fE\u002fdPhyr0X68T8="},"type":"scatter","xaxis":"x","yaxis":"y"},{"hovertemplate":"\u003cb\u003eCutoff:\u003c\u002fb\u003e %{x} days\u003cbr\u003e\u003cb\u003eSegment 3:\u003c\u002fb\u003e %{y:.3f}%\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"#D9534F","width":3},"mode":"lines","name":"Segment 3","x":{"dtype":"i1","bdata":"AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PA=="},"y":{"dtype":"f8","bdata":"lsjxxTsT+j+WyPHFOxP6P+JLzj51SPo\u002fkA\u002f1HOyY+j\u002fkEQu30tn6P7Sp2RHdCPs\u002f3uXj1uM7+z+wrsKQTl\u002f7P3b8icamhvs\u002f9lxfn3Gq+z8p0ALnQtb7P\u002fzsDzUZDPw\u002fH\u002fovsx1F\u002fD+2FmtXM3D8PzDhCnI\u002fkvw\u002fKN5hNqiU\u002fD9cXEyq+r78P8dHVov98Pw\u002fsdyHdSgK\u002fT9dhiLcl\u002fv8P6jSZY2t5\u002fw\u002fleZJmQ3o\u002fD\u002fwd1GMx\u002fD8PyTEfICo+vw\u002fhtG4FpM0\u002fT827nlxX3n9P1epyiZYkf0\u002f1oRlydi\u002f\u002fT9qUevtcd39PxTUeeN3\u002f\u002f0\u002ff7eUbl4h\u002fj8YSRTxLlj+P9VhphFTiP4\u002fpSopjOSs\u002fj+h9S7joqj+PwuZCyaN4P4\u002fOfJKmrH0\u002fj\u002fhKz15Zhr\u002fP9lt\u002fjpRTv8\u002fWo\u002fIjoVa\u002fz+pv9lvb3z\u002fP3YnPImLqf8\u002fmMT7rxS5\u002fz+nrbrfZu\u002f\u002fPyJvtRTaBgBArvBYKp8KAEC6eWIbVCQAQKAxcp9THgBAjSbF0NYQAEDXcBgcXBEAQA\u002f4bAkTFgBAe4EyLM0ZAEC0RrcFlggAQNViemS0FgBAMGn9kEggAECRh8J5ASoAQHGV9tEhJQBAvlM5A2EIAEDYao\u002fYas\u002f\u002fP7UObwLox\u002f8\u002f8+UGkz72\u002fz8="},"type":"scatter","xaxis":"x","yaxis":"y"},{"hovertemplate":"\u003cb\u003eCutoff:\u003c\u002fb\u003e %{x} days\u003cbr\u003e\u003cb\u003eSegment 4:\u003c\u002fb\u003e %{y:.3f}%\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"#27AE60","width":3},"mode":"lines","name":"Segment 4","x":{"dtype":"i1","bdata":"AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PA=="},"y":{"dtype":"f8","bdata":"rKOsbL4X\u002fz+so6xsvhf\u002fPyZJXZMaSP8\u002f0d\u002fkIVeH\u002fz+omAWKhMX\u002fP6DtcvsZ6v8\u002fLHBtCg8EAEDS4lS+XRAAQPP+xqqFGgBAkFR6WcYiAEA6o4kmnzcAQDH\u002fz0HASABA0g+Z4oBkAEDAcXIPFGUAQBOFlWVwdwBA+a5URYuFAED\u002fK9S6TYsAQKrngGyjngBAvKGzOm2iAEDKzR11Y6oAQLEiY0FRuABA\u002fMP2f9HBAEDRMlbw4MMAQNit5szW3QBAMCDfQYroAEC8D1FmuvsAQJl1rcR8EgFAVONESYUQAUAT5VhQXBgBQH8VLRRvHQFA7WYyA3U1AUA\u002fKa91iEABQBqx0\u002fDZSwFAbxwH0\u002fZdAUA0B3x0K14BQAs7cVm9ZgFA2YjHQgptAUCZwff1WYkBQErGr\u002fRBkwFASB6qO16RAUD+feZp54wBQGscIvzcjQFATXZ+5nV\u002fAUCsVQdNFnUBQDWsoh1zawFA6Z\u002fe23VeAUCyeAYH\u002fk8BQGhJUWlYNQFAXeejrEERAUDsQZJr7xMBQJ9dQGwqDQFAmmePS9z8AEC1Mu7t5OEAQCYaA+ni9wBAKyGZXCsYAUB0eyCfsBsBQN+8NYwNGwFAFgadJfAQAUCY3y3tIv4AQNgpGvPL2ABAgreT3hzZAEA="},"type":"scatter","xaxis":"x","yaxis":"y"},{"hovertemplate":"\u003cb\u003eCutoff:\u003c\u002fb\u003e %{x} days\u003cbr\u003e\u003cb\u003eSegment 1:\u003c\u002fb\u003e %{y:.3f}x\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"#4A90D9","width":3},"mode":"lines","name":"Segment 1","x":{"dtype":"i1","bdata":"AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PA=="},"y":{"dtype":"f8","bdata":"2233p4vI4D\u002fJjvkIi8jgP8SdN1Sf0OA\u002fyR8c72bY4D94pTsmvt7gP4SWlaXg6OA\u002fvg99QpL04D9W2s4navvgP2zK\u002fEAwA+E\u002fk\u002flypeQX4T+EFhm93CPhP8jfKRrSMOE\u002fmQYKIDo64T9EUGSpn0HhP0Fd2JM8TeE\u002fV2DaNn5M4T\u002f6qG8BjlbhP0mNxXhSY+E\u002fp0zsj1F94T\u002f1i1BJLJLhPxfktbBCjuE\u002f\u002fFTQRiOc4T+zfMqV9J3hP8lF1orBmOE\u002fmKv8mTyp4T+xhm1c4LbhP6w9WS8CxuE\u002fiZZmwXLC4T8Xj9mZvb\u002fhP+7ZjTjJueE\u002fQcHmlk+94T\u002f3EqNuIMXhP2SHC9gN2eE\u002fXKQwMD7i4T92nZuXrPjhP8jCvSN2\u002feE\u002ft4oo2RD54T\u002fL4mfYp\u002fThP+nAlO1v\u002fuE\u002fVImLFbsW4j\u002fUfFUguCPiP82PpeLENuI\u002f8qY8rU8s4j9aA2Fn+jfiP3MpngemVOI\u002f0zg0SD9L4j\u002fNEvvyNzXiP+f29C\u002fYOOI\u002fDotyDOBC4j+7WR9x2VTiP2vFXfZufeI\u002fdvFH8dqa4j+Hb5iW8ZLiP7FTuIBSmeI\u002fBnllwfN\u002f4j9GDMIyIXfiPwPFtRs7l+I\u002fSpKZN6Su4j\u002fkJbYPUMniP2vvkrJUzOI\u002ftqTvpSCC4j8="},"type":"scatter","xaxis":"x2","yaxis":"y2"},{"hovertemplate":"\u003cb\u003eCutoff:\u003c\u002fb\u003e %{x} days\u003cbr\u003e\u003cb\u003eSegment 2:\u003c\u002fb\u003e %{y:.3f}x\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"#E8A87C","width":3},"mode":"lines","name":"Segment 2","x":{"dtype":"i1","bdata":"AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PA=="},"y":{"dtype":"f8","bdata":"kbXTZYhS7T8UETcIi1LtP1glwg1jVu0\u002fnDag\u002fipU7T8ia32EqVntP7Wz21A5X+0\u002fVID4b\u002fpc7T+9uIa2rmftP3f\u002f8EmEcO0\u002fnaSdtI5p7T8yO5iaw2ftP\u002fzIVwckc+0\u002fQVrFuFpy7T+9cSKzSnftPybdhsH+ee0\u002fkV3Zq1SL7T8urWflS4vtP+Etcc5Yfu0\u002fGvo\u002fkdhu7T9zeNwH9nDtPyToXKucku0\u002fljD907um7T\u002fTkCJB6rjtP7UuOvGSyO0\u002fnDLLOWLL7T9ukzBLj87tPzrAMe091O0\u002fwsaQ59\u002fl7T9qzEsYffLtPxN\u002fr4YWB+4\u002fHh1Snx8L7j87GzjcMyLuP8XB+fRz\u002fu0\u002fV4k6VnTo7T\u002fVZxnDUtXtP3eiYddo0u0\u002fENQNZTHW7T+G49i\u002fCsbtP5tR5NyNwO0\u002fIxzv0d\u002fE7T8Ro\u002f3vYKftP4PHq\u002fRLcO0\u002f8U5n0iZw7T8lp4mAP3LtPyo5VSdFUe0\u002fPJfv3Tdo7T9p4AnZYWrtP7nK7d69g+0\u002fStISgkaV7T9Htq9XpJHtP0DrUEIKbe0\u002fZDu6+DJT7T\u002fSscBP9nTtP5x8Ws\u002fHV+0\u002fiwU+1WaB7T9e1qnkrpftPylLHe68o+0\u002fAPxPsTa57T8eN41DOLftP0kS9SEoxe0\u002fEcB7bjHe7T8="},"type":"scatter","xaxis":"x2","yaxis":"y2"},{"hovertemplate":"\u003cb\u003eCutoff:\u003c\u002fb\u003e %{x} days\u003cbr\u003e\u003cb\u003eSegment 3:\u003c\u002fb\u003e %{y:.3f}x\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"#D9534F","width":3},"mode":"lines","name":"Segment 3","x":{"dtype":"i1","bdata":"AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PA=="},"y":{"dtype":"f8","bdata":"9BSkAx\u002fM+z8K6k\u002f8Hcz7PxJSLBYKx\u002fs\u002f61mzYxjM+z9xWNYyR8T7PwUs\u002fXYTuPs\u002fx17L0Ma2+z8dE+s1Gaz7P30GypS5pvs\u002fGx8icz6d+z9lmNGKJI77P01bETGofvs\u002fOyfUdwBz+z\u002f3eN0o9nj7Py+9HT2Lavs\u002fp9oSTmJT+z9BZWmWZ1j7Py00CCoUXvs\u002fNCgKXbBS+z9wjdyilC77P00f\u002fNlRA\u002fs\u002fj9ADdPTg+j+aisuxtdb6P+cSZeMgvvo\u002fkG3uCjvE+j91hIofosT6P2c\u002f2Z\u002fBqfo\u002fWX8VymS6+j\u002fgkN0VUr\u002f6P26t7NM3y\u002fo\u002fV7Z0mjnE+j8AefwuR9z6P27khyzP5vo\u002fAnZyw47j+j93ZHpvydf6P+qnx81h5\u002fo\u002fONvcFLPp+j9eYPai9en6PwUGJ6vT7Po\u002fLlpT7rXU+j8gPZPQ0ub6P0o2SqMv\u002fPo\u002fFyPAHGIP+z+jbDaa6CP7PyDLK2yiKPs\u002ffrjRjlkn+z9Twc3b4E\u002f7P75O97evSfs\u002fc87mbOY8+z+dCFwqyyT7P5QH8nRZHPs\u002fAGcwLK4Z+z\u002fXclTXKQv7PzjIPPAaAPs\u002f9\u002fg06\u002fzg+j+kBNkzJtP6P8uHKkWJqfo\u002fAsAO7Ax6+j9jxUjmuVX6P1GC+BrdX\u002fo\u002fbKAEj\u002fiM+j8="},"type":"scatter","xaxis":"x2","yaxis":"y2"},{"hovertemplate":"\u003cb\u003eCutoff:\u003c\u002fb\u003e %{x} days\u003cbr\u003e\u003cb\u003eSegment 4:\u003c\u002fb\u003e %{y:.3f}x\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"#27AE60","width":3},"mode":"lines","name":"Segment 4","x":{"dtype":"i1","bdata":"AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PA=="},"y":{"dtype":"f8","bdata":"oP1FULySAECb3kWzu5IAQPAFwhq5hwBAR0BWirt5AEDs1L0teG0AQOFri154XABA0FHDkVNMAECyUWPHbj0AQKGt8kFJLQBADzLTeRMbAEBEd2ZWmw0AQHMhhL9C7f8\u002fsoz7elXV\u002fz\u002fZ4LxWFq3\u002fPzEM884Hmv8\u002f+QSvqqaX\u002fz+7K98O3nn\u002fP7s5OaqHbv8\u002fp5EhgGFN\u002fz9R3tDpmEL\u002fP+9HFcRIQP8\u002fYZF3Dcsp\u002fz\u002fNQd2LWhj\u002fP3MhZck5If8\u002fNpNb9if+\u002fj98ugmzINn+P+vskiBKyv4\u002fuM8Os7ip\u002fj\u002f\u002fRFiBAZ\u002f+P+Wv+hbmkv4\u002fvedArTyT\u002fj\u002fYWF9m5Yr+PwVaPbqVev4\u002fMxZ3jlZy\u002fj98\u002fJT1lmn+P+K3BI\u002f+Uv4\u002fgLlQ19JM\u002fj+IpYHPYFn+PyLpE9pMO\u002f4\u002fY\u002fi2EUMR\u002fj92OgPfdf39P0loxv8M7P0\u002fYAXCSxLa\u002fT9kQKOdJ6z9P7r+7oXrhP0\u002f+rNHwZlm\u002fT\u002fuQYNp6Er9P\u002fT+NnYNIv0\u002fKMsENqHv\u002fD+tkDtunNn8P156ZjLIvPw\u002fc1BW1NuX\u002fD\u002fZAO7ssXn8P4ffs6cCevw\u002fAB2RgCl+\u002fD\u002fjQANLO2T8P\u002fOS85qnP\u002fw\u002fFEcF0fIu\u002fD8p7K6HuyL8P5YWUlo\u002f9vs\u002f8p2f9Mj9+z8="},"type":"scatter","xaxis":"x2","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.44],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Removed most recent days"},"autorange":"reversed"},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Observed fraud rate (%)"},"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4},"xaxis2":{"anchor":"y2","domain":[0.56,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Removed most recent days"},"autorange":"reversed"},"yaxis2":{"anchor":"x2","domain":[0.0,1.0],"title":{"text":"Multiple of overall fraud rate"},"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4},"annotations":[{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eObserved Fraud Rate by Maturity Cutoff\u003c\u002fb\u003e","x":0.22,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eRelative Fraud Rate by Maturity Cutoff\u003c\u002fb\u003e","x":0.78,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"title":{"text":""},"font":{"family":"Segoe UI, -apple-system, sans-serif","size":12,"color":"#333333"},"margin":{"l":60,"r":30,"t":40,"b":50},"legend":{"orientation":"h","yanchor":"bottom","y":1.02,"xanchor":"right","x":1},"showlegend":true,"height":720,"paper_bgcolor":"#FAFAFA","plot_bgcolor":"#FAFAFA"},                        {"responsive": true}                    )                };            </script>        </div>
+    </div>
+    
+    <div class="table-container">
+        <div class="section-header">
+            <div class="section-title">Selected Cutoff Summary</div>
+        </div>
+        <table>
+            <thead>
+                <tr><th>Cutoff Days</th><th>Rows Remaining</th><th>Overall Fraud Rate</th><th>Segment 1</th><th>Segment 2</th><th>Segment 3</th><th>Segment 4</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>0</td><td>1,771,026</td><td>0.938%</td><td>0.492%</td><td>0.860%</td><td>1.630%</td><td>1.943%</td></tr><tr><td>7</td><td>1,653,322</td><td>0.989%</td><td>0.525%</td><td>0.909%</td><td>1.711%</td><td>2.008%</td></tr><tr><td>14</td><td>1,522,840</td><td>1.042%</td><td>0.563%</td><td>0.960%</td><td>1.786%</td><td>2.058%</td></tr><tr><td>30</td><td>1,221,402</td><td>1.126%</td><td>0.624%</td><td>1.057%</td><td>1.883%</td><td>2.151%</td></tr><tr><td>45</td><td>929,725</td><td>1.182%</td><td>0.675%</td><td>1.086%</td><td>2.005%</td><td>2.171%</td></tr><tr><td>60</td><td>647,778</td><td>1.204%</td><td>0.696%</td><td>1.124%</td><td>1.998%</td><td>2.106%</td></tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="table-container">
+        <div class="section-header">
+            <div class="section-title">Selected Relative-Rate Summary</div>
+        </div>
+        <table>
+            <thead>
+                <tr><th>Cutoff Days</th><th>Segment 1</th><th>Segment 2</th><th>Segment 3</th><th>Segment 4</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>0</td><td>0.524x</td><td>0.916x</td><td>1.737x</td><td>2.072x</td></tr><tr><td>7</td><td>0.531x</td><td>0.919x</td><td>1.730x</td><td>2.030x</td></tr><tr><td>14</td><td>0.541x</td><td>0.921x</td><td>1.714x</td><td>1.975x</td></tr><tr><td>30</td><td>0.554x</td><td>0.939x</td><td>1.673x</td><td>1.911x</td></tr><tr><td>45</td><td>0.572x</td><td>0.919x</td><td>1.697x</td><td>1.838x</td></tr><tr><td>60</td><td>0.578x</td><td>0.933x</td><td>1.659x</td><td>1.749x</td></tr>
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <div class="observations">
+        <h2>Key Observations</h2>
+        <ul>
+            <li><span class="badge">Observation</span> Changing the maturity cutoff affects the level of the observed fraud rates, but it does not overturn the relative ranking of the segments, which suggests the segment risk ranking is not only a recency artifact.</li><li><span class="badge">Observation</span> The higher relative fraud rate for less mature Segment 4 transactions suggests that exclusion decisions for new BIN-Channel pairs in this segment should be more tolerant or require more maturity before acting.</li><li><span class="badge">Observation</span> One possible explanation is that Segment 4 is more aggressive and its fraud tends to be detected faster, which would make it look disproportionately worse on more recent transaction cohorts.</li>
+        </ul>
+    </div>
+    
+</body>
+</html>

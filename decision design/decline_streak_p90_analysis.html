@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decline Streak P90 Analysis</title>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px;
+            background: #f0f2f5;
+            color: #1a1a2e;
+        }
+        h1 {
+            color: #1a1a2e;
+            font-size: 1.85em;
+            font-weight: 600;
+            margin-bottom: 6px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #4A90D9;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 16px 18px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-left: 4px solid #4A90D9;
+        }
+        .stat-label {
+            color: #888;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .stat-value {
+            color: #1a1a2e;
+            font-size: 1.35em;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+        .chart-container, .table-container, .observations {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #4A90D9;
+            border-radius: 2px;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.05em;
+        }
+        .table-wrap {
+            padding: 18px 20px 22px 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.94em;
+        }
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            color: #555;
+            font-weight: 600;
+            background: #fafbfd;
+        }
+        .observations {
+            padding: 20px 24px;
+        }
+        .observations h2 {
+            color: #333;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0 0 12px 0;
+        }
+        .observations ul {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.9;
+        }
+        .badge {
+            display: inline-block;
+            background: #EEF4FA;
+            color: #4A90D9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Decline Streak P90 Analysis</h1>
+    <p class="subtitle"><strong>Dataset:</strong> March, April, and May deposit files (combined, cleaned) &nbsp;|&nbsp; <strong>Generated:</strong> 2026-06-11 20:07 &nbsp;|&nbsp; <strong>Scope:</strong> Segment-specific P90 decline-streak rule from all nodes with more than 100 rows, applied to nodes with up to 100 rows.</p>
+    <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Reference Nodes</div>
+                <div class="stat-value">2,662</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Low-Volume Nodes</div>
+                <div class="stat-value">63,197</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Flagged Low-Volume Nodes</div>
+                <div class="stat-value">1,359</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Flagged Share</div>
+                <div class="stat-value">2.15%</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Segment 1 Threshold</div>
+                <div class="stat-value">8</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Segment 4 Threshold</div>
+                <div class="stat-value">20</div>
+            </div>
+            </div>
+    <div class="chart-container">
+        <div class="section-header">
+            <div class="section-title">Threshold Charts</div>
+        </div>
+        <div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="99b0875e-c846-4b91-ac26-ee62cce6d1f1" class="plotly-graph-div" style="height:560px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("99b0875e-c846-4b91-ac26-ee62cce6d1f1")) {                    Plotly.newPlot(                        "99b0875e-c846-4b91-ac26-ee62cce6d1f1",                        [{"boxmean":true,"hovertemplate":"\u003cb\u003eSegment 1\u003c\u002fb\u003e\u003cbr\u003eMax declines: %{y}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#4A90D9"},"name":"Segment 1","y":{"dtype":"i2","bdata":"AwAJAAMABQASAAIACAADAAUAAgAEAAMACQADAAIADAAIAAUABgAGAAUABgADAAYABwAHAAQACQACAA4AAgAEAAQACAAGAAIACgAEAAoAAgAKAAQABwAGAAUAlAAHAAkABAAGAAgACgADAAMABAAEAAQACAAIAAMABAADAE0ABQAGAAcABQAFAAYABQAHAAkABgAGAAcAAwAKAAMAAwAEAAMACAAJAIEABQAEAAcABAAGAAYAAwAOAAcABQAIAAQABAAEABMABAAEAFwACAALAAgABgAKAAQAAwAFAAUABgAIAAsABAAFAAQAAgADAAYABgAJAAQACwADAAwAAwAIAAEAAgAEAAYABAAFAAMAAwAGAAQABQAFAAgABAADAAEAAQADAAQABQADAAQACgAIAAUABQADAAYACgADAAQABQAEAAcAAwAFAAUABQAHAAcACAACAAIABgAGABYACAADAAMAAwAIAAkACAACAAUABAADAD0AAgAGAAQABAAEAAQAAwAEAAUABAAGAAYABQAHAAYABgAXAAMALAAFAAEABQAGAAQABQAEAAUABAAGAAQABwAKAAcAAwAGAAYABAAEAAMACAACAAMABAAGAAMABAAHAAgACAAEAAIABwADAAMACAADAAUAAwAHAAYAAwAFAAYABAAEAAQABgAKAAEAAwAGAAcAAwAFAAQABgAGAAQABwABAAQABAAEAAIABgADAAQAAgAHAAQAFgAFAAQABwADAAgAAwAFAAgABQADAAQAzQADAAUACAAGAAkACAAHAAMAFAAIAAIABwAGAAMACAAHAAMABwAHAAcABgAHAAcABAADAAYABgAFAAQABgAEAAkAAQAHAAMAAwAGAAoAAgAEAAQABgAHABIABAAGAAMAAwAGAAIABQAHAAwABAALAAUAAQAEAAMAAgAEAAMABgADAAQAAwAIAAcACgAFAAMADgACAAcABAAGAAQABAADAAUABAAEAAUABQAGAAYAGwAEAAYABwAHAAMABQAFAAcABwADAAQABgAHAAMABgAFAAIABQAIAAYAMQAFAAMAAgADAAQABgADAAMAAwADAAUABwAjAAoACQALAAEAAwADAAEABQALAAcABQAEAAUABQAHAAUABgACAAQAAwAGAAUABQAFAAYAAwAEAAQABQAGAAUAAwADAAQABAADAAYABAAGAAQAAQADAAMABAAFAAQAAgAGAAUAAwAGAAgABgADAAYABAAEAAIABQAEAAIAAwAoAAYAAwACAAcAAwAEAAYABgAHAAQAAwADAAYABgAFAAMABwAFAAYAAwAEAAUAAQAGAAwABwAGAAQABAADAAcAAgAGAAIABQAKAAUABwABAAMABAAIAAUAAwADAAQABgAGAAQAAgACAAUABAAEAAUABwADAAYABQACAAIAAwAHAAQACwAGAAQAAgAFAAUABQAHAAUACAADAAQAAgACAAcABAAJAAMAAwADAAMAAwADAAUAAgAGACgACAAHAAUABQACAAUABQAHAAIABQAJAAcADwAEAAQABwAJAAMABAADAAQABgAGAAQABQAEACsAEQAGAAQABAADAAUACAAFAAQABAALAAUABAACAAUAAgAFAAMABQAFAAgABgACAAQABAADAAgADAACAAIAAwAHAAQABQAFAAYAAwAEAAUABQAHAAQAAgAEAAQABwAGAAQABAADAAcABwAIAAQACAAEAAIABAAIAAUABAAKAAcABgAEAD4AAwAEAAQAAwAEAAMAAwAHAAQABAAEAAMABgAGAAQABgAGAAcAAwAFAAUABgACAAgAAwAEAAUABQAFAAQACgAFAAMABgADAAUACAAIAAEABQAGAAcABAAFAAUACQAIAAQABAAFAAMABAACAAgABAAGAAQACAAJAAQABAAEAAcAAgAGAAMABAAEAAUACAACAAEAAgAGAAUABgACAAIABAADAAYAAwAEAAYABAAEAAUACgAJAAcAAQAUAAUABgAEAAgAAwAFAAUABQACAAsAAwAGAAMABAAEAAMABgAJAAIABAAFAAIABAAEAAMABwAEAAIABAADAAcABgAFABAAAgAHAAsAAgAEAAIABAADABgACwACAAMACgAGAA4ABgADAAgABgACAAMABAAEAAMAAgAFAAIABwAEAAUAAwABAAQABgADAAMABAALAAYABQAGAAQACAAGAAMABwADAAUAAgADAAMAAwAEAAEACAAEAAUABgANAAQACQACAAEAAwACAAQABgAIAAQAAwAFAAYABwACAAIABgAFAAMABgALAAMAAgACAAMACQAbAAQABAAFAAQACQACAAUAAgACAAQABgACAAMAAwAEAAUACQAFAAUAAgAFAAQAAgAFAAMABQACAAkADQAEAAMABAAEAAIAAwACAAUAHQADAAUAAwAEAAUABQACAAMAAgAEAAcAAgADAAIAAgAFAAMABwAHAAMACAAFAAYABAAFAAIABAADAAQAAgACAAMAAwACAAIABQAFAAIAAwADAAIABAAGAAUAAgACAAoABAACAAcABwAFAAQABAAGAAgAAwAEAAYACgAAAAYAAwACAAMABAAHAAQABAAKAAcABQADAAQABgASAAcABgACAAQABwAJAAIAAgAEAAcABQADAAUABAAFAAIAAQADAAYABgACAAQABQAEAAUAAwAEAAcACAAEAAUABQAFAAMABAAEAAQAAgAHAAMAAQACAAIAAwAHAAQAAwADAAQABAABAAQABQADAAIABAAHAAQACgAIAAQABQAFAAUABQAFAAMAAwABAAQAAwADAAQACAADAAMABAACAAUABgAHAAUAAgAFAAgABAAIAAEAAgAIAAUABAAEAAUABgAFAAUABAAIAAUABAAQAAcAAgAHAAMAAwAHAAQACQAGAAMABAAHAAMAAgAEAAYABQALAAIABgAFAAQAAQADAAUADAAGAAQAAQACAAkAAgAEAAMAAQADAAYABAAFAAIABwAEAAQABQAIAAkAIAADAAIACgAGAAQABgADAAYABQADAAsAAgAEAAUABAADAAQAAwADAAkACAAFAAsAAwAHAAEABgADAAUAAwAEAAQACAAHAAUABQAGAAoAAgAFAAEABAAIAA4AAwADAAQABAAGAAUAAQAHAAQAAgADAAIAAwADAAgABgADAAEABgAFAAMAAQAIAAEABgAGAAMAAgAEAAcABAAEAAMACgAAAAQACAAGAAMABwADAAYABAALAAQAAgADAAEABQADAAEABQADAAIAAgAIAAMAAQADAAMAAwAGAAUAAgAEAAUAAwAFAAYAAwAGAAMABwAGAAUABQABAAEABgAGAAYACwAIAAkABQAEAAIAAgAJAAUABwAEAAQAAgACAAgAAQAIAAIAAgAGAAcABAAGAAIAAwABAAUAAQAFAAUAAwAHAAgABQAIAAYABgAEAAcAAwABAAMAAgAEAAUACQAFAAUABQAFAAcABQAIAAEAAQACAAUABAADAAUACAAFAAQAAwAGAAUABQADAAUABgADABEAAwAGACoABQAMAAcAAwAEAAcAAQAIAAUAAwACAAIACAACAAYABgAHAAEABAAJAAEACgAEAAQABAAHAAcABAAEAAQADQADAAQABwAFAAMABQAIAAcABgADAAQAAQACABMABAAEAAMABQAJAAQABQAHAAcABAACAAMABAAFACUAGAACABAACwADABIABgAEAAQABAAGAAkABAADAAgAAwAEAAQAAQADAAMAAwANAAcABgAFAAIAAwADAAMAAwACAAQAAwAEAAUABAAEAAMAAgAHAAUABAACAAIAAgAGAAIAAwACAAQAAwACAAIAAgABAAcABgAEAAEAAwADAAMABgACAAIABAAGAAYACQADAAQAAwACAAMAAgAJAAMAAgADAAMABAACAAQAAgAEAAMABQAGAAMABAALAAgAAgAEAAIAAwAEAAkAAwACAAsACwARAAQAAgANAAUAAgAFAAEABAADAAIAAgACAAMABAALAAIABAACAAUAAwADAAMADQADAAMABQACAAMABQAGAAcAAgAGAAQAAwAGAAMABgABAAMABAAFAAQABwAEAAwAAQADAAQABgAEAAIABAAEAAQABwADAAIAAgADAAgAAgAHAAAABQAFAAYABgAEAAYABgAEAAMABQADAAMABwAFAAIADAACAAEAAwAOAAIAAgABAAIADgAFAAMAAwAFAAQAAwABAAQAAgACAAMACgAGAAQABAAEAAMABQAHAAIAAwABAAQABgAGAAIAAwAFAAQABAAFAAUAAwAMAAQABQACAAUAAwADAAMABQACAAEABQAFAAQABQAJAAUABgADAAIABwAHAAMABwACAAYABQADAAQABQAEAAUABwADAAMACwAEAAIAAgAJAAQAAgAHAAEABAABAAQABAADAAIAAQAGAAcAAQAHAAIAAQACAAIAAgACAAQABgAGAAUAAwAEAAYAAgABAAMABAACAAgABQACAAUABAAGAAMAAAADAAIAAQADAAcACgADAAIAAQAHAAgAAwADAAAABAADAAMABAAEAAMACAAMAAQACAADAAAAAgABAAMAAgAEAAMAAwACAAIABAABAAUACwAKABQAAgAEAAgABAAJAAkADAAEAAQAAQAGAAYAAgAHAAEAAwACAAUAAwADAAIABQACAAIAAgACAAQABgAHAAMAAwACAAMAAwADAAUAAAABAAgAAgADAAQAHQABAAcABAAJAAgABQAIAAMABAAFAAQABgAEAAMAAwADAAYABAACAAMABAAHAAIABQADAAMABAAFAAIABAAGAAQAAQAFAAMACQAHAAcADAACAAYAFgABAAIAAQABAAQABQAKAAUAFgADAAIAAQAIAAMAAgAUAAAACAAFAAYAAgAGAAMAAwACAAsAAgAEAAIABAABAAIABwABAAMAAgAEAAQADgAEAAEAAwADAAMAAwAAAAEAAgACAAQAAwAFAAEAAAAIAAEAAQABAAMAAgAHABQABQAFAAEACwADAA8ACwADAAEABQATAAgAAQACAAEADQADAAEAAAABAAQABgAAAAQAAgADAAQABQACAAQAAQACAAMAAQAHAAIAAgAAAAMAAwACAAMABAAEAAIABAABAAQAAgACAAIABQADAAMAAgAFAAcABgADAAcAAwABAAYAAwAGAAIAAgABAAEAAQADAA4ACAAAAAQAAgAEAAMACAACAAEAAQAFAAIAAgAGAAMAIAADAAQABAAGAAUABQADAAYAAwABAAsAAQAEAAUAAQAFAAUABAAFAAcABQAEAAQACgADAAgAAgADAAQAAQADAAMAAgAHAAQABAADAAoABAACAAMAAgAIAAIAAwAHAAMAAgAFAAEABQAEAAMABAADAAMABAACAAQABgABABUAAgADAAIAAgADAAQACwADAAEABgAHAAYABAACAAsAAgAAAAUABAACAAEACAABAAQABAACAAIABAAEAAEAAQAEAAQABQAFAAMAAQADAAQAAwACAAIABQAFAAcABQADAAgAAgABAAIAAwACAAMAAgABAAEABQADAAEAAgADAAEABwAEAAQAAgACAAIABwACAAIAAwAJAAQAAgACAA4AAgACAAAADAAFAAEABAABAAEABAACAAQABQACAAIABgAFAAYABwAOAAYAaQAFAAQAAwAGAAMABAAEAAMAAwAHAAQABAACAAQABgAFAAAABAAPAAQAAgAIAAIABAACAAEAAQACAAMAAQANAAMABQAFAAIABgAEAAUAAgBTAAEABAAzAAQAAwACAAMAQAADAAcACgAGAAQAAAAEAAUAAwADAAgACwAIAAYABAADAAEAAwAMAAQAAQAIAAMAAwAFAAIAAwABAAYABQAGAAEABAADAAQABAAEAAMAAQAFAAIAAgAEAAMABwAKAAIABAAEAAQABAACAAMACwACAAEADAACAAQACgAkAAcAAwAEAAkABAAIAAUAAQACAAMAAgAFAAUADQABAAMAAgAEAAQAAgAAAAMAAQAFAAEAAQABAAcABAACAA0ABQAEAAgAAwABAAAABQAMAAEABAAEAAMAAgABAAEABgABAAUAAwAGAAYAAwAEAAIABAACAAYACgADADQAAgAGAAMABwADAAIABwAFAAMAAgAGAAMABQACAAIAAwAEAAMABwADAAEAAAABAAEAAgADAAMAAAABAAEAAgADAAQAAgABAAAABAABAAEAAwAAAAEAEQAEAAEAAwAEAAEAAQACAAAABAABAAQACgABAAMABQAFAAEABAAFAAIAAgAGAAMACAAIAAQAAQAHAAMAAQAPAAUAAwAHAAMABgADAAYABgADAAEAAgADAAcACwABAAAABQABAAEABQAIAAMAAgABAAAAAAABAAEABAAAAAEAAgABAAAAAQAAAAAABwABAAEAAQACAAAAAQABAAEAAAAAAAMAAgAFAAYABAALAAcABQAJAAgABAAFAAQABAAKAAQACQAFAAMABwAFAAIABQAGAAQAAQACAA0AAgADAAMACwADAAQAAwADAAMABAADAAAAAQAAAAIABQAEAAQAAwAFAAMAAgACAAEAAQAFAAQAAQABAAQAAQABAAIAAQACAAMAAAABAAEAAQACAAIAAQABAAAAAgAEAAYAAwAIAAMAAQACAAEAAAABAAMABAAEAAQABgAEAAUAAgAFAAQAAgAJAAAAAgAEAAkAAQAGAAAAAgABAAAAAQABAAAAAQACAAEAAAA="},"type":"box","xaxis":"x","yaxis":"y"},{"boxmean":true,"hovertemplate":"\u003cb\u003eSegment 2\u003c\u002fb\u003e\u003cbr\u003eMax declines: %{y}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#7FB3D3"},"name":"Segment 2","y":{"dtype":"i1","bdata":"BAQHBwQEBQcEBgMEAwcJBgMMBAMFAgUFAwYOCAkFCwgLCwgDBwcDBAMHCQUGBAQCBwgJCAQJBQYFBgQEBQ4CBgUFCAYFCBEGBAcFCBYGBwcBBgMEFAQFDQMDBAQHDgUMCwIIAwEHCAYHAwoIBAwDBQsOAQUJBgMKBQcEBAcEBgQIAwUGBwoHBQQKAhADAwMGBAYGBAQEBwMGCAcHBAQKAwMFAhMFCgcFDAUGBQUIBgcEBQMGBwYGAQoIAgUGBAwFBggGCgIEDAIJBgMFBQgHDgcBBAcFBwIDBQIJBAcJCggGDQsEAgcKAQkDCiAEQwcRAgYFBwgPAwMLDwYDBAcGDQgFGwUNBwsDBAICAgsDCAQCBggFBgMCBwUHBgMGAgUFBAUIAgUEBAYFAgMEAwgCBAQKAwQMAwUMBgUHAgUKBQcDBQoOCAMGAwUJBRIHBwMCCgMGBAIGCgcHHAkfBw0DBAcIGAMFBAUGAwMFAgIFBQMBAwoFCQUJAgkHCAUECwMGBQMKAwQKBAcEBAgCCAYEBQQDAgIDBgoHChIEAQgEAw8IBQoEAwQGBQUCBQgCBAQFCx4IAwIDAwYMBAMFBBADAwMDBAUOAwEECAUGDQUCAQUMAgAHCAYDAgQmBQMDBAcJBQYGBQYEBgoEBAIDBgcEBwQDAwkEBAQGAggEBhkGCAUGBgUICAMECgUDAwYEAwcFBAMFAwgDBQUDBQcHBQIEBgcFAgQDBAkGAwEeBAUFAwMFCAYKBgUEBQYDAgQHBAYKBwsEBQYDCBUPBQQDAgEFBAcEBQEDBgMGBAgFAgcxBgUJBQMFBQIIGwQBBgQCCAQFBQMEBwQFCBIHBAMFBAQEBQUBBQQFBwYDAQcDCAkEGAYDBgcEBAUDAgQEBAQFBwsEBgIGAwkDCgcEBAICAgYDFBsFBwYFAQcGBQMGBQMCBAYIAwMBBwYECQcDBAMCBAQEAgIFBQYHCAQGCQoDCQYCBQ8IAwcGCQQBBQUDAgUEAgYDCAIBBQIIAwcKBQcNAggCAwECAwkGAwUEBwgFAwYGBAcIBgQFCwUJBgUCCAYLAwEHAQUDAwYECAYCAwMFDAkFBAQDBAcDBAMGBQ4FAw0FBAUDBQQICQYCBgUDAgkDBAQICwsEBAgEBQcEBBMEAwULAgUGBgQDAwMCBwEFBAUIBQYDBQUHEAICDwQEBAIGBAEHLQsDBwMBBwcCBQUFBAMECAQGBwMIBgQDBQUGBggFBQUEAgIDCAUFCQQHAgUDBQUHBAMCCAIDBAUFAQYFBAYEAQMDCgQEBAYGBwMGAwUGCgYHCAgFBwMFAgIGBAIBAgYHAgUCCQM3AioGBgUHAwIHBgUEAgIGBgIBBQYDBQ0HaQIDBxAFCQICBR4HBQYBBgIEAwYHBAEEDAUCAgUDAgIRCAUJAwIKCwYLAwIDBgcGAgMDBgAEAgYCBwUHEQkDEQECBQQCAgkDCAICBQ8CAgIEBAEGAwIFBAMDBAULBAsGBQMDAQgCBQgDBgQBAwIEBQQEBAIFBRELAwsCDAYDAgUBBAQDCwMIAgYCAwMJCApYBQgDAgMJBwICAgMHAgoIAQwDBQMECQYDBgIHAwEFAwYKAhYRBgEHAgYCBQIIBwMFCQ4DAwQHBQMDBQMBBgQCBAMDAwQCBAcYAwUHEAwHDQIEBwUDBQ4FBAUIAgIDAwwCBgoEAgoCAwUCBgcFAgYCAwQFBAMDBhsNAQQEBQQCAgMCAwcsBgMDBQcEBgIGBgYHAgEEAgIGBAYHBAYFAQMCBgwCAwEEAwQDBQUIAgMEFwoDBAQHDgsECAgHBQQDAQEDAQQEBQMGBCECAwUHAgQFBQQGAwQFAgMBEgIFAwYEAgIDBAgDBgYGBgMVBQQHAwcGBQcGAwMDBwIGBwMKBAMJAwcCJAIDBgQBDgMdBRYEBwQBAgQBBQEFBAUCBwMFBQoGAwUDAQkEAwYIBAUEBwYFBAIGAwMGBAMEBw0JBQUEBwJiBQUHBgYFAwMQAwIDBgEEAwIDBg4CAgQFCQICBQMCBAMGBwUDBAURBwQHBwUFBAMCBgQCAwYDAwIDAgwFBQMAA0QFAQQKBAcBBwgCAggFBQUCBAUEBQYEAwYGAgIECQMFBCAICAQEBAQCAgcDBAUBDAoEBAMIDAQEBS9SBAUDBgYCBgUCBwQFBQUDDAMBBAIGBgoHBgMKBgIBAwIGAwIFBwICBAIFBQICAgcTBAITBQQCBQMDAgICCQMBAwEEBAEDCQgEBAIYBAIDAwQCCgYFCAIFBAIHBQMHBAEHEAIBBQICAwgBBAYPBQEKEQMGCRMIKAcIBgEFAwYEBQgDGAoDBQwHCQMCBBADDQMABAIGCAgIBQwEAw8EBQoECAgFAQIDBQcDAwQCBAQFBgYFBwQFCAUDCQoFBAcBBQQGBAQFBAQEMAQCBAIGCwMICQUCBgEGAgYHBAUBBgMBAgYFAgQKAwUEAgUIBAMDBwgCAgMJB0wCAgMaAgUoFAMFAgEDBAUCAwMJAwEECggFAgEDDBMBAgYGCQMDAwQFAwUDBgUBBAIECwUDBAEBCAQDBAwQAwEQCQkDAQQGBAMUAgMFBgICAQMCBgcGBAEHBAUBAgoCDAQPBQsCAgMFAwEFBQYFBAESCQQCCAEFBwMEAggHAQMEAwIEAwMCAgIKAxACBAYDAgMBAgQDAgMHAgMEAAYCAgEHBgMCAQMCAgIHAgcEAQUDAggBBgMEBA4GAwEDBQMDAgIGAwMBBAIBDQMDBQUAAwIEBAEFAwQGEwUKBAMGAggFAQkCAwIJAQcEAgMABQMDBAIFAwMDBQICBAcDAgQLBQEBAQMCBQMCAQIIBwgCBQgCAAAJAwIHAgADFQMCAgQEAwEGAwIDBAUOBgQEDAoCAwQBAAABBAAAAgUDAQMCAAcLBwMDAwUEBQUGAwEDBggCBwUEBAMDBAMFBAMHBwUCAgUCCAECAgIBBwMGAwYGBQcGBw8FBQsFLgYCAwQGBDMIBDACBwICCAUEAQcDAwUHBAQGBwcDBAMBBgUBBAQDAgMFAwQAAgkABAgCAQEBBQIDBQgCBQQEBQEEBwUIBQIEAgQGAgEEAQIIAgUDAQMCAgMFAgICAgMHAwEBBAECAgEBAwEEAwMFAgQFAwYJBgkGAgcGAQIDAgoFBwIABxAQAgQBAQUBAQcFCwQGBQcJBgMHBgMEBwoIBAUBAwoDBQUBAgYEBAQEAwQCAQQIBAUDBwUEBAYEAwEFAwEBAwEIBAIDAwEBEgASBwgFAAYRAQMEBwEFAwUDBAQDBAcGBAMBAQEBAQABAAE="},"type":"box","xaxis":"x","yaxis":"y"},{"boxmean":true,"hovertemplate":"\u003cb\u003eSegment 3\u003c\u002fb\u003e\u003cbr\u003eMax declines: %{y}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#E8A87C"},"name":"Segment 3","y":{"dtype":"i1","bdata":"CAQEDQwECAQEBhALCAcNBRUDCDYICAcFCQcrCQwLCwUCBw8FDQkFBgQPEAcIEAkPBgYCBw0JCgwKDhIFCwYOBQ0PBg0xFBkKEA0ODQgFAgQHFg0HCwYFGwYCAwgLBQkDCxcGEwcUAwMIBQQDBgQDAwQDAwYDEgUDDgIEFQICBwkEFA8EDwcLBgUOAQ8KBgY1BAsDAwUDAw8ECiUiHggoCwYEAwcSCgsFBA0ZBwUGCQcHBggJAx4lBAIPCwQLCAwDBhELBQYIBQZGBRsIAwYGIwoDJwcEBAIEAiIFBggIBQUFBwcEEAsDCgcFBgYFGwQPBwkCBAIEBgUDBAkCAwMFEQ8xAwYNGgYTAgcIBQYGAwYDBwsKCAwFCAkJAwQGAgQIEAUQEQ0OAgMDCQYJBQgOBgUHBAUCBBIDAwIHBgcLBQQMAwkFBxMEBgkFBQMQAwYLBQUFCQMDBQMEBAQGBQQKDQgHCQIDCwMFBQMPGAcUAxUJAgMDBAMDBwAFCQkJDh8ECQQEDAMHBQQDCQQEBgYJCAIJCgMDAgccAgICAwgECwIJCBgDDQMFAgMHAwQHBQUDDwAECQQCAwdlBwoSAgADAwQJCAcDBQYGCgcuAgkIBQUFCQcEAxMCBwQKAgQFAgceIgUQBAcBBQcDCgIDBAMJEAgFAQYNBAgEBwYEDAkOAwQCBAECAwcKBAMHBwsSBQQDBwUEBQUEBAUFAw0DCggGBgMGAwQAAwEGAwQDAwcGGgoEBgoDDwYDLBQGAwMMAgkCFwQFGwkIDwYOAgYGAQcQKgoNCwYDAQMDBwYgLgQUCAECAQcHBwoUBwQUGgMHDQ0PBQcNCQMDBQsKBQQFAQsGBAUEBAYHBwQEAwUHAQQNCQkGBwgKBAwEBwcJCAcTBwMDDw0QEQMFBQQMCgMDBw4DBQIEDQYIDQ4CBgQFAwYFAgEDBxsGCQIFAgMRAwgGDAQCAgYJCAUCBAIDBBoGAgITFAcIAxQICAMDAgQFBAINAgoKCQICAwcFBAMKAggFBQQGBQIFAggBGQwDBgMFFAIDBQUKBAIDAwgCBQIEFAIEBAcEIQwNBAcDBAQDAwQCAxMLAhMIBAEBBAcKDgEOARsSAwQDCAIBGAgEAwcBDAICBQkHBAcNBAQEAgcCAAQFBwIDBgYMAgIDBwMFCgMKAgUCAgMEAQQDAwQEAgYCAwQEAwkDBAQCCwUDAwUFBwQDBQUDAwUFAgQOBQcGAgcDBgMFFAoCAgUDAwMCAgMKAQICBwMFGAMHAgMDBQUEBSoDBQgrBAgBAwQCAwYKCQ0FFAIFAgMUCBMLBAIPCgwDAgUCAwsDEQAFBwNMBgMBCwgGBQMFAgMKAgobEwkGBRAEHQQCBgINCQUHCgkGAwMFGAMDAggKAgMFFAEoAQsHAwYCAQEDBAUCBhEBBAMEAwgIBAQFBgQDBRQGBgYFCAoCAwECBAMJAwMRBBEGAwIDBAILAgFBAQMpDgQBAzoCAQIDAQUBEQIEBQEGAwULAgUDAQEDAgUFBQYHAgEDCwUKAwIFAgQCBgECCwcDAgQCAgEBBR8DBQQHDwQECgIAAwgCCgMEAQQDAgIGAwMCBQcGAAgBAgUBAAMDDAYCBAIEAQIEAwICAQECAgMCBAIGAgECBAEGBAEDPAAACAAHAgQCAggBBQICAwIFAQcEBQQEBwUFCAUIBgcEBQcIBwMECQYHDAcECQkHAQQIAgQCCAIDBAQABlACBAEECwYEAgEJAwEAAgQBAQACAggCAwQCCQEBBwQBBAEDAgIBAQAAAgEBAAQBCgcECQENFAEGAgQHAwECAgQACAEDAAUBAAACAgIEBAQCAwMGCQUGAgQJBAEDBw0EBAEKAwUCBAIEAgMBAwEBBgIOBQECAAIDAAIHAQIFAgcBAQcBCAEBAgcIEAsMBQIEBQEBAwIAAgABAQABAwICAgMAAQA="},"type":"box","xaxis":"x","yaxis":"y"},{"boxmean":true,"hovertemplate":"\u003cb\u003eSegment 4\u003c\u002fb\u003e\u003cbr\u003eMax declines: %{y}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#D9534F"},"name":"Segment 4","y":{"dtype":"i2","bdata":"CAADAAUAHQACACsANQAUAAwABgAWABAACgANAAcAFgASABQAAwAGAAoACwABABAABwALAAQABgAIAAYAEAAgACgABgACAAkAHAAdAA0ABAA1AAkAnQArAAkADQAkAA4AFAAHAAUAHAAHADEAEQASABYABAAVABwAVQAHABwABgAJAAYAAwAWAAQABwAEABAAIQAEABkAVAARABsAMQADABkAEAAHAB8ALAAOAAYAQwAVAAkAOAASAC8AaAAPABIABQBVAAgAEAABADYABQAkAEwABAARAAYACQAEABoADgAMAAQAAwApAB0AAgAGADsABgAjAAwALQAIAAUABQAFAAQACwAGAAIAAwAPAAsACgAGAA0AXgBWABQAEQAYAAIABQAHAAMAAwAKABIACQARAAkAAgANAAoADwADAD8AKgAFAHEADAAjAAIABwAEAAcAMgADAAQABQAOAAcAAgAJAAUABgAFAEQABQAGAAUAJAAFABIANAAHABQACQAKAAUABgAIAAkABAAEAAgABAAHABYACQAFAAQAEAAHACsAAgA6AAkABQAEAAYACAAEAAEACAAMAAUAGQAYABgAJQALAAYABAAIABYACwANAAEABgAKAAkACgAHAAYAJAAQAA4AHAABAAYADQACABIAFAAHAAMABgAHAAgADgAJAAQAJQAgAAMAEQBEAAMABgARAAQAAgAFAAoAGgAEAAsAEQAJAA4AEwATAAgABwADAAEACgAKAAcABAAFAA4ABgAIABUABgAEAAcACQADAAgADQAGACQACAADAAYABQADACEABAAIAAcAGwADAAUABgALAAUAEgAHAAMABgAEAAsABAADAAMACAADAAQACAAUAAUADAATADoABgAIAAYAAgACABYABwAGAAsACgAFAAcAAwBCABcABgAFAAgABQAZAAsACAAXAAIAAQAGAAMADwAJAAQADQAFAAQAJgAJAAwABwACADIABQAKAAQACQAEAAcAEQAGABAACAAUAAMABAACAAEAAwANAAYABQAFAAEAGAAQAAMACgAFAAUABgAFAAoABAAFAAUADQAVAAgABwAMAAMACAACABwAAgAEAAcAAwAFABQABwADAAIALwARAAUAAwAGAAMABgADAAoAAwACAAcABgAGAAgABwAMAD8ALwAGABYAXgAGABwABQAFAAcAIAANAA0ADwABAAwACQACAAEAEAADAAMABgADAAYAAwAEAAQABQAOAAQAAwADAAwAFAASAAsABQAIAAMAEgARAAoABAAcAAoABgADAAYABAALAAUABwAEAAUAAQABAAYACAADABAAAgAfAAUABgADAA8ABQACAAkABAAIAAoAAwASAAMACAAFAAMADgAFAAIAAgAGAA0ABAAKAA0ABAADADwABgAIAAkACQADAAMABQAHAA0ADQAKAAwAAgAFAAIABgAEAAIABwAFAAYADQADACIAAwAEAAkAEAAEAAQAFwACAAYACwAIADkABgAFAAQACwAEAAMABQAHAAQABQAEAA4ABQAHAAMADwAEAAMAdgAEAAgABgAGAAQADAAHAAMACAALAAQAAwAHAAMABgAEABIABAADAAAAAwADAAMAAgAFAAYAAgADAAEAAwAGAAQABAADAAQAFgADAAIABAAFAAgAAwAIAAMAAwAFAAEACQAKAAgABwADAAYAAwADAAsABwAIAAUACgAFAAcABQAGAAQAEgAGAA0ABwAFAAQABQAMABYAAgAEAAUACAAGAAkABwAEAAgABwADAAQAAQAHAAEAAQAyAAQAAwAFAAUAAgAEAAMAGAADAAYAIgAEAAUACQAFAAIABQAPAAcAEwAFABIABgABACcABAANAEMAAgAKAAYADwAIAAYAEAAIAAUABwACAAMACAABAAgACgABAAgABwAKAAUAAgAEAAQABwACAAIABQAOAAIABwAsAAQABQAFAAEABQABAAUABwAZABkABAAIAAYABQACAAUAAwAEAAQABwACAA4AAgADAAkAAgACAAIABAABAAgACAACAAMAAgAHAAMAAQABAAYACAABABAAAwACAAMABwADACcABAAIAAMABgADAA0ABAADABEANAAEAAsAAgADAAcABwABAAEABAAEAAUAFgACAAcAAQAMAAMABAAGAAMABgAFAAoABAANAA0AAwADAAMABAACAAgACQACAAYABgADAAQABAABAAQAGAACAAIABQAEAAgACwAHAAMAAQACAAEABAAEAAMABQAEAAgAAwACAAUAAgAIAAQADAAKAAIADgANAAMAAgAEAAMAAQAFAAQABQACABIABAAGAAIABwAIAAIABAAEAAkAJgARAAwAegAFAAQAFwAFAAcAJgATAAgABAALABwAAgAHAA0AAgAWAAMACAACAAMABAADABgABQBLACIACQABAAUACAANAAcApABAAAIAEwABAEwADwAFAA8ACAACAAcACQADAAkAAwACAAIAAwADAAIABwAEAAQACwAHAA0ABAAEAEUACwAGAAcABwAEAAIACAAFAAcABAAGAAQAAQAFAAIAAwAIAAMACgAEAAIAAwABAAUAAQAEAAYAAgAFAAQAAQAJAAQAEwAJAAQAAwABAAYABAAMAAMADwAEAAQAAQAIAAEABQAPAAUABAADAAUAAQADAAMABwACAAcAAwAEAAQACAAEAAAAAgAJAAMABAAEAAUAAQAEAAQAAwAAAAIACQAFAAYABQACAAsAAQACAAEADQAIAAsABAADAAMADAAMAAQAAgAEAAUABgAEAAEAAQADAAMABQABAAEAAwACAAAAAgAFAAIABwAPAAgAAgAIAAIABQAHAAYACAAGAAcAAgAFAAQABAAGAA8ADQAOAAIABAAJAAoAAgACAAIAAwACAAAAAgAGAAAABgACAAYAAgAJAAAAAgABAAMAAgADAAMAAQADAAEAAQAFAAAABAACAAEAAgADAAIAAgAAAAMABQABAAwABgALAAAAAAACAAAAAAABAAQAAgABAAEAAQABAAIABAACAAIAAQAHAHoAAwABAAEAAwADAAYAAgABAAYAAQAHAAMABQAAAAEABQAEAAQAAwACAAwAAAADAAAAAQABAAEAAQACAAEABgABAAEAAwAGAAcABAACAAAABgADAAAABgABAAIAAQABAAMAAQABAAAAAgABAAAAAwACAAAAAwACAAEAAAABAAAACAAPABEABQAAAA4AAwADAAcABwAFAAQABgAJAAsAFQAMAAkAAgAFAAEABwAAAAIABQAEAAIACgACAAQABAAGAAUABQAFAAEAAwAGAAgABAACAAIAAQADAAIAAQADAAIABAABAAUAAAAMAAgADgAIAAcADwAIAAoABwAKAAcACQAIAA4ADwAJAA8ACgAFAA8ACgAGAAYABAAAAAIAAQABAAAAAwA="},"type":"box","xaxis":"x","yaxis":"y"},{"hovertemplate":"\u003cb\u003e%{x}\u003c\u002fb\u003e\u003cbr\u003eP90 decline streak: %{y:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#D9534F","size":11,"symbol":"diamond"},"mode":"markers+text","text":["P90: 8.0","P90: 10.0","P90: 14.0","P90: 20.0"],"textposition":"top center","x":["Segment 1","Segment 2","Segment 3","Segment 4"],"y":{"dtype":"f8","bdata":"AAAAAAAAIEAAAAAAAAAkQAAAAAAAACxAAAAAAAAANEA="},"type":"scatter","xaxis":"x","yaxis":"y"},{"hovertemplate":"\u003cb\u003e%{x}\u003c\u002fb\u003e\u003cbr\u003eFlagged node-segments: %{y:,}\u003cbr\u003e\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#E8A87C"},"text":["841","477","119","100"],"textposition":"outside","x":["Segment 1","Segment 2","Segment 3","Segment 4"],"y":{"dtype":"i2","bdata":"SQPdAXcAZAA="},"type":"bar","xaxis":"x2","yaxis":"y2"},{"hovertemplate":"\u003cb\u003eRows:\u003c\u002fb\u003e %{x}\u003cbr\u003e\u003cb\u003eFlagged nodes:\u003c\u002fb\u003e %{y:,}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#7FB3D3","line":{"color":"#5A8DB5","width":1}},"nbinsx":25,"x":{"dtype":"i1","bdata":"ChM9QT89XjJkOkcMGBEXCwgWDgsaHgsXPQ0oCxUvERIhFA4hJzMwDSNjKwgPDQ4QCxMPDT5CEFo+KjIxRyELOAwjNDdkHUM5HQobQl1jLCQ4WBciJBYRHwwzMyJACwo6Fg8bEy4UHgoTSRsUDUExIRsmVxdcMgo3FiIQDhkUDU4PJCYjDRAQGywYDxwPKxsfKDkxHhNBFzc1KDQkHhEsPSQiCFYYT0BCThMdFj8eRSkeFk8lQhE6MQw4OyEnEgk3Lx0gFBEUCyRDCTAgEkUQFQ4NJ1QgEw4ZGTlWSzNOISgxEB0PLw0mO1IlQjULDBEUDypbSyQREAsWFxJaOjFcEFhEGzQeOENcKiY3QQ86PUUtEiILURIiJw0KDigMNCwNP1w4GyNRTQsfMBswIDoPCho7WDUODg4wGA4OFDs5FlMeISsjGTkZHzQuJiQXRRkJIS4TLQw1LEpaXSNhFSdNGDlBSiEpDgodVBwQHUJNShtPGBldIRYMIQwWEyIeFQhBORsKN0IYUTRFMjYYGg0gVTELRF5VPhNbDBUeIEI3D2RYE1AzDl0hETQUXjUlQ0tMHREPJw8XMwxOQ1tLFUJAOjQsSiMyCSQOKhUgQVEmQlRcPyVJHCATJwtROxFIGRcUGxgVKhoIGjA4LykgRB8KERhdPiooUw5VNyE0KhAfTRYeDw8tMEMSEEIsQhQmQy0ZFiYLKxwXRx04Dw4OMj8XD1MgMSYZFRkZGRsNDRU1EioxIA8lNBQUSRsUOyhMHRwaVUc7HhArCQ0xEhMZFA88EQkZOSM7DTsLFQ8LHg48EBkeOAsjQ2QcEScLChQYNhYgKEpMNgsNCSEgQxdXNRYmOx8zLBUJFxkLCgoOJCEaIisULhcUPQwdEQsLCSAXNREJCwkICS8gH1IYIz1UH2JMDiQLWC9HGydENFcvKBM0E0xDUR8pD1UqUQsiXSkbFSwZSmMxIUobG1g0PxFdVFRRFwsxSykqKGMcEhQaCkFCDxAXEBswLyEYSB8pO09ROyUaEBMzShsUEAsgOw8PExEYKCslHBwLOTUiNSQWHhhhWQsiDQo\u002fVhkvHiElGxsLHBIoGEIdCCsfCw8WQSgqDFQoXAoPNBAaEQ0UGh8KUlo5YBcgCgsVEg0sFQ5ZDFEkWF4mFhU0LCkPHgoZQREYFhcaGEtJJzUMDAguIQ0bEiEbHiUzHRIJCRQzFA0vHUAeKyMLFg84CwwnEicMDBFbFBEoCB0SHw4QZCwkOToQCywiMyMfIFJIFw9HDw8mKEwYMBEPGghGCRcLDBkMMSoZCyU\u002fEg4hGQg9OCYnQSBRDDYqEAoKKEESGhcOIBYcFScNFCwLDRIjIBgdESUqFiYaFRERDw83ER0JDQ44Ch4YNxAMETclJy0UEiBLTiEYNxYVKitSJww4PCIbTRAmKQ9aKDxACRMUIBUKGAgSIhkRCBMQChQ1CxlPDBMXNU01F1MmCWEfCi4SIjMYOCMdLCooPjIjExxOKBoxFiAvIxYLChQYFSkKWR0JCEgqNwodJw0THB0QEzU0ESMhKBo4HzUUJQ4gGCctJkRYGDUMQBYqIhNdISAUKCgWEhQlDRQNXg4MDRY7EyYTRRkICCozEEohOkcoPjMNKw0MCxRkEVZiWlFJSlQwSjAUUFAINDUcFCsdRTwNICZKFF8THxxBGFw3M0VPKAomDCQWLhkiMSgxPVEVCQ4tESwjGURGQxkJHi8bHysXFBQLVhQUDBUYEg85D0k6ChIrCCgJCyUJKRkcDyNEDjsPGw4ZGTIJOSAtQSQyN0UNDCssExUSFh4NFmAfNxMk"},"type":"histogram","xaxis":"x3","yaxis":"y3"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.26666666666666666],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Segment"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Max consecutive declines"}},"xaxis2":{"anchor":"y2","domain":[0.3666666666666667,0.6333333333333333],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Segment"}},"yaxis2":{"anchor":"x2","domain":[0.0,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Flagged node-segments"}},"xaxis3":{"anchor":"y3","domain":[0.7333333333333334,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Rows in flagged node"}},"yaxis3":{"anchor":"x3","domain":[0.0,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Number of flagged nodes"}},"annotations":[{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eReference Decline-Streak Distribution by Segment\u003c\u002fb\u003e","x":0.13333333333333333,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eFlagged Low-Volume Node-Segments\u003c\u002fb\u003e","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eRows in Flagged Nodes\u003c\u002fb\u003e","x":0.8666666666666667,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"title":{"text":""},"font":{"family":"Segoe UI, -apple-system, sans-serif","size":12,"color":"#333333"},"margin":{"l":60,"r":30,"t":40,"b":50},"showlegend":false,"height":560,"paper_bgcolor":"#FAFAFA","plot_bgcolor":"#FAFAFA"},                        {"responsive": true}                    )                };            </script>        </div>
+    </div>
+    
+    <div class="table-container">
+        <div class="section-header">
+            <div class="section-title">Segment Thresholds</div>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Segment</th><th>Reference Nodes With Segment</th><th>P90 Streak</th><th>Median Streak</th><th>Max Streak</th><th>Applied Threshold</th></tr></thead>
+                <tbody><tr><td>1</td><td>2542</td><td>8.0</td><td>4.0</td><td>205</td><td>8</td></tr><tr><td>2</td><td>2468</td><td>10.0</td><td>4.0</td><td>105</td><td>10</td></tr><tr><td>3</td><td>1457</td><td>14.0</td><td>5.0</td><td>101</td><td>14</td></tr><tr><td>4</td><td>1291</td><td>20.0</td><td>5.0</td><td>164</td><td>20</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="table-container">
+        <div class="section-header">
+            <div class="section-title">Sample Flagged Nodes</div>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>BIN</th><th>Channel</th><th>Rows</th><th>Segment</th><th>Max Declines</th><th>Threshold</th></tr></thead>
+                <tbody><tr><td>534311</td><td>BEST41</td><td>100</td><td>1</td><td>23</td><td>8</td></tr><tr><td>400012</td><td>BULL</td><td>100</td><td>1</td><td>14</td><td>8</td></tr><tr><td>434759</td><td>BULL</td><td>100</td><td>1</td><td>10</td><td>8</td></tr><tr><td>330548</td><td>BATTLE4</td><td>100</td><td>2</td><td>10</td><td>10</td></tr><tr><td>469039</td><td>SKYDOOR28</td><td>100</td><td>1</td><td>11</td><td>8</td></tr><tr><td>510731</td><td>SKYDOOR29</td><td>100</td><td>3</td><td>18</td><td>14</td></tr><tr><td>510731</td><td>SKYDOOR29</td><td>100</td><td>1</td><td>10</td><td>8</td></tr><tr><td>486198</td><td>BEST35</td><td>99</td><td>1</td><td>8</td><td>8</td></tr><tr><td>400885</td><td>DRIVE753</td><td>99</td><td>1</td><td>12</td><td>8</td></tr><tr><td>337390</td><td>PEACH5</td><td>99</td><td>1</td><td>8</td><td>8</td></tr><tr><td>487907</td><td>SKYDOOR45</td><td>99</td><td>4</td><td>26</td><td>20</td></tr><tr><td>400885</td><td>DRIVE753</td><td>99</td><td>2</td><td>20</td><td>10</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+    
+    
+    <div class="observations">
+        <h2>Key Observations</h2>
+        <ul>
+            <li><span class="badge">Observation</span> The segment-specific decline-streak thresholds are based on all BIN-Channel nodes with more than 100 rows, using the ceiling of the segment P90 streak.</li><li><span class="badge">Observation</span> Applying those thresholds to nodes with up to 100 rows flags 1,359 nodes, or 2.15% of the low-volume universe.</li><li><span class="badge">Observation</span> The thresholds rise sharply by segment, which means a fixed decline-streak rule would over-penalize higher-risk segments.</li><li><span class="badge">Observation</span> Most flagged low-volume node-segments come from Segments 1 and 2 because their acceptable streak thresholds are much tighter than Segment 4.</li>
+        </ul>
+    </div>
+    
+</body>
+</html>

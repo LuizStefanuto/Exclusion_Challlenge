@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channel vs Segment Bivariate Analysis</title>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px;
+            background: #f0f2f5;
+            color: #1a1a2e;
+        }
+        h1 {
+            color: #1a1a2e;
+            font-size: 1.85em;
+            font-weight: 600;
+            margin-bottom: 6px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #4A90D9;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 16px 18px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-left: 4px solid #4A90D9;
+        }
+        .stat-card.small .stat-value {
+            font-size: 1.05em;
+        }
+        .stat-label {
+            color: #888;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .stat-value {
+            color: #1a1a2e;
+            font-size: 1.35em;
+            font-weight: 600;
+            line-height: 1.25;
+            word-break: break-word;
+        }
+        .panel, .observations {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #4A90D9;
+            border-radius: 2px;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.05em;
+        }
+        .table-wrap {
+            padding: 18px 20px 22px 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.94em;
+        }
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        th {
+            color: #555;
+            font-weight: 600;
+            background: #fafbfd;
+        }
+        .observations {
+            padding: 20px 24px;
+        }
+        .observations h2 {
+            color: #333;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0 0 12px 0;
+        }
+        .observations ul {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.9;
+        }
+        .badge {
+            display: inline-block;
+            background: #EEF4FA;
+            color: #4A90D9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Channel vs Segment Bivariate Analysis</h1>
+    <p class="subtitle"><strong>Dataset:</strong> March, April, and May deposit files (combined, cleaned) &nbsp;|&nbsp; <strong>Generated:</strong> 2026-06-12 11:23 &nbsp;|&nbsp; <strong>Scope:</strong> Segment composition across channels in the cleaned dataset.</p>
+    <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Rows Analyzed</div>
+                <div class="stat-value">1,771,026</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Distinct Channels</div>
+                <div class="stat-value">171</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">One-Segment Values</div>
+                <div class="stat-value">8</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Multi-Segment Values</div>
+                <div class="stat-value">163</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Values in All 4 Segments</div>
+                <div class="stat-value">65</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Average Segments per Value</div>
+                <div class="stat-value">3.00</div>
+            </div>
+            
+            <div class="stat-card small">
+                <div class="stat-label">Top Channel</div>
+                <div class="stat-value">SKYDOOR28</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Top Value Rows</div>
+                <div class="stat-value">156,436</div>
+            </div>
+            </div>
+    <div class="panel">
+        <div class="section-header">
+            <div class="section-title">Bivariate Charts</div>
+        </div>
+        <div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="a2f5753e-ac24-4383-860a-a5751c4057da" class="plotly-graph-div" style="height:620px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("a2f5753e-ac24-4383-860a-a5751c4057da")) {                    Plotly.newPlot(                        "a2f5753e-ac24-4383-860a-a5751c4057da",                        [{"hovertemplate":"\u003cb\u003eChannel:\u003c\u002fb\u003e %{y}\u003cbr\u003e\u003cb\u003eSegment 1 rows:\u003c\u002fb\u003e %{x:,}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#4A90D9"},"name":"Segment 1","orientation":"h","x":{"dtype":"f8","bdata":"AAAAAIBqwkAAAAAAAF6\u002fQAAAAAAAirRAAAAAAAAgdUAAAAAAAHXJQAAAAAAAEIpAAAAAAIC9z0AAAAAAgPnFQAAAAAAAIs1AAAAAAACzyUAAAAAAQFLVQAAAAABAQdFAAAAAAAAInkAAAAAAAO7EQAAAAAAAzbVAAAAAAACupUAAAAAAAA7vQAAAAAAALKhAAAAAACCP5UAAAAAAAAXUQA=="},"y":["DRIVE537","PEACH6","SKYDOOR43","BULL3","ATM50","SKYDOOR51","SILVER","BATTLE5","BATTLE7","DRIVE779","ORANGE31","DRIVE771","BEST46","SKYDOOR19","SKYDOOR29","SKYDOOR49","SKYDOOR16","BEST45","SKYDOOR18","SKYDOOR28"],"type":"bar","xaxis":"x","yaxis":"y"},{"hovertemplate":"\u003cb\u003eChannel:\u003c\u002fb\u003e %{y}\u003cbr\u003e\u003cb\u003eSegment 2 rows:\u003c\u002fb\u003e %{x:,}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#7FB3D3"},"name":"Segment 2","orientation":"h","x":{"dtype":"f8","bdata":"AAAAAAA6sUAAAAAAADqwQAAAAACAd8FAAAAAAADkpEAAAAAAAJSpQAAAAAAA8bJAAAAAAAA6tUAAAAAAAK63QAAAAACADcFAAAAAAACLvEAAAAAAAKqyQAAAAAAAHrtAAAAAAAAexkAAAAAAwNzgQAAAAADAXtRAAAAAAAB2zEAAAAAAAAAAAAAAAABAbNVAAAAAAHDN9UAAAAAAoKDnQA=="},"y":["DRIVE537","PEACH6","SKYDOOR43","BULL3","ATM50","SKYDOOR51","SILVER","BATTLE5","BATTLE7","DRIVE779","ORANGE31","DRIVE771","BEST46","SKYDOOR19","SKYDOOR29","SKYDOOR49","SKYDOOR16","BEST45","SKYDOOR18","SKYDOOR28"],"type":"bar","xaxis":"x","yaxis":"y"},{"hovertemplate":"\u003cb\u003eChannel:\u003c\u002fb\u003e %{y}\u003cbr\u003e\u003cb\u003eSegment 3 rows:\u003c\u002fb\u003e %{x:,}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#E8A87C"},"name":"Segment 3","orientation":"h","x":{"dtype":"f8","bdata":"AAAAAAAqqkAAAAAAABewQAAAAAAAmqtAAAAAAAAosEAAAAAAAFuwQAAAAAAAk7xAAAAAAAAAAAAAAAAAAK67QAAAAAAAeJhAAAAAAAAhtEAAAAAAABewQAAAAAAA27pAAAAAAIB+xUAAAAAAAAAIQAAAAAAAn8lAAAAAAMCP0kAAAAAAAAAAAAAAAABAGNNAAAAAAAAAMUAAAAAAoH\u002fiQA=="},"y":["DRIVE537","PEACH6","SKYDOOR43","BULL3","ATM50","SKYDOOR51","SILVER","BATTLE5","BATTLE7","DRIVE779","ORANGE31","DRIVE771","BEST46","SKYDOOR19","SKYDOOR29","SKYDOOR49","SKYDOOR16","BEST45","SKYDOOR18","SKYDOOR28"],"type":"bar","xaxis":"x","yaxis":"y"},{"hovertemplate":"\u003cb\u003eChannel:\u003c\u002fb\u003e %{y}\u003cbr\u003e\u003cb\u003eSegment 4 rows:\u003c\u002fb\u003e %{x:,}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#D9534F"},"name":"Segment 4","orientation":"h","x":{"dtype":"f8","bdata":"AAAAAAAio0AAAAAAAHiqQAAAAAAAdKZAAAAAAAAOy0AAAAAAAJCFQAAAAACAIMBAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1K1AAAAAAAAqr0AAAAAAAAAAAAAAAAAAAAAAAAAAAIBpzEAAAAAAAADwPwAAAAAAm89AAAAAAICD1kAAAAAAAAAAAAAAAADAEdhAAAAAAAAAAAAAAAAAwD\u002foQA=="},"y":["DRIVE537","PEACH6","SKYDOOR43","BULL3","ATM50","SKYDOOR51","SILVER","BATTLE5","BATTLE7","DRIVE779","ORANGE31","DRIVE771","BEST46","SKYDOOR19","SKYDOOR29","SKYDOOR49","SKYDOOR16","BEST45","SKYDOOR18","SKYDOOR28"],"type":"bar","xaxis":"x","yaxis":"y"},{"hovertemplate":"\u003cb\u003eSegments present:\u003c\u002fb\u003e %{x}\u003cbr\u003e\u003cb\u003eCount:\u003c\u002fb\u003e %{y:,}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#4A90D9"},"showlegend":false,"text":["8","49","49","65"],"textposition":"outside","x":["1","2","3","4"],"y":{"dtype":"i1","bdata":"CDExQQ=="},"type":"bar","xaxis":"x2","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.44],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Rows"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Channel"}},"xaxis2":{"anchor":"y2","domain":[0.56,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Segments present"}},"yaxis2":{"anchor":"x2","domain":[0.0,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Number of channels"}},"annotations":[{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eTop 20 Channels by Rows and Segment Mix\u003c\u002fb\u003e","x":0.22,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eChannels by Number of Segments Present\u003c\u002fb\u003e","x":0.78,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"title":{"text":""},"font":{"family":"Segoe UI, -apple-system, sans-serif","size":12,"color":"#333333"},"margin":{"l":70,"r":30,"t":40,"b":50},"legend":{"orientation":"h","yanchor":"bottom","y":1.02,"xanchor":"right","x":1},"barmode":"stack","showlegend":true,"height":620,"paper_bgcolor":"#FAFAFA","plot_bgcolor":"#FAFAFA"},                        {"responsive": true}                    )                };            </script>        </div>
+    </div>
+    
+    <div class="panel">
+        <div class="section-header">
+            <div class="section-title">Top Channels by Rows</div>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Channel</th><th>Rows</th><th>Segments Present</th><th>Dominant Segment</th><th>Dominant Share</th><th>Segment 1 Share</th><th>Segment 2 Share</th><th>Segment 3 Share</th><th>Segment 4 Share</th></tr></thead>
+                <tbody><tr><td>SKYDOOR28</td><td>156,436</td><td>4</td><td>Segment 4</td><td>31.7%</td><td>13.1%</td><td>30.9%</td><td>24.2%</td><td>31.7%</td></tr><tr><td>SKYDOOR18</td><td>133,473</td><td>3</td><td>Segment 2</td><td>66.9%</td><td>33.1%</td><td>66.9%</td><td>0.0%</td><td>0.0%</td></tr><tr><td>BEST45</td><td>69,231</td><td>4</td><td>Segment 4</td><td>35.6%</td><td>4.5%</td><td>31.7%</td><td>28.2%</td><td>35.6%</td></tr><tr><td>SKYDOOR16</td><td>63,600</td><td>1</td><td>Segment 1</td><td>100.0%</td><td>100.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td></tr><tr><td>SKYDOOR49</td><td>59,408</td><td>4</td><td>Segment 4</td><td>38.8%</td><td>4.7%</td><td>24.5%</td><td>32.0%</td><td>38.8%</td></tr><tr><td>SKYDOOR29</td><td>55,740</td><td>4</td><td>Segment 2</td><td>37.4%</td><td>10.0%</td><td>37.4%</td><td>23.5%</td><td>29.0%</td></tr><tr><td>SKYDOOR19</td><td>45,254</td><td>4</td><td>Segment 2</td><td>76.3%</td><td>23.7%</td><td>76.3%</td><td>0.0%</td><td>0.0%</td></tr><tr><td>BEST46</td><td>38,798</td><td>4</td><td>Segment 4</td><td>37.5%</td><td>5.0%</td><td>29.2%</td><td>28.4%</td><td>37.5%</td></tr><tr><td>DRIVE771</td><td>31,486</td><td>3</td><td>Segment 1</td><td>56.1%</td><td>56.1%</td><td>22.0%</td><td>21.8%</td><td>0.0%</td></tr><tr><td>ORANGE31</td><td>30,730</td><td>3</td><td>Segment 1</td><td>71.0%</td><td>71.0%</td><td>15.5%</td><td>13.4%</td><td>0.0%</td></tr><tr><td>DRIVE779</td><td>29,607</td><td>4</td><td>Segment 1</td><td>44.4%</td><td>44.4%</td><td>24.7%</td><td>17.4%</td><td>13.5%</td></tr><tr><td>BATTLE7</td><td>29,031</td><td>4</td><td>Segment 1</td><td>51.4%</td><td>51.4%</td><td>30.1%</td><td>5.4%</td><td>13.2%</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+    
+    
+    <div class="observations">
+        <h2>Key Observations</h2>
+        <ul><li><span class="badge">Observation</span> 163 of 171 channels (95.32%) appear in more than one segment.</li><li><span class="badge">Observation</span> 8 channels (4.68%) appear in only one segment.</li><li><span class="badge">Observation</span> The largest channel is SKYDOOR28 with 156,436 rows, and its dominant segment is Segment 4 with 31.75% of that value&#x27;s rows.</li><li><span class="badge">Observation</span> This means Segment is not a fixed channel attribute in many cases, so later performance comparisons should adjust for segment mix rather than assume a single built-in segment profile.</li></ul>
+    </div>
+    
+</body>
+</html>

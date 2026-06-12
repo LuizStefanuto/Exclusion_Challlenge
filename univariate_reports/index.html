@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge Univariate Analysis Index</title>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px;
+            background: #f0f2f5;
+            color: #1a1a2e;
+        }
+        h1 {
+            color: #1a1a2e;
+            font-size: 1.85em;
+            font-weight: 600;
+            margin-bottom: 6px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #4A90D9;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 16px 18px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-left: 4px solid #4A90D9;
+        }
+        .stat-card.small .stat-value {
+            font-size: 1.05em;
+        }
+        .stat-label {
+            color: #888;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .stat-value {
+            color: #1a1a2e;
+            font-size: 1.4em;
+            font-weight: 600;
+            line-height: 1.25;
+            word-break: break-word;
+        }
+        .chart-container, .table-container, .notes-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #4A90D9;
+            border-radius: 2px;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.05em;
+        }
+        .observations {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            margin: 20px 0;
+        }
+        .observations h2 {
+            color: #333;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0 0 12px 0;
+        }
+        .observations ul {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.9;
+        }
+        .badge {
+            display: inline-block;
+            background: #EEF4FA;
+            color: #4A90D9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+        .note {
+            padding: 16px 20px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #edf2f7;
+            text-align: left;
+            font-size: 0.95em;
+        }
+        th {
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            font-size: 0.8em;
+        }
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 14px;
+            padding: 20px;
+        }
+        .report-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 16px;
+            background: #fbfdff;
+        }
+        .report-card a {
+            color: #1d4ed8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .report-card a:hover {
+            text-decoration: underline;
+        }
+        .report-description {
+            margin-top: 8px;
+            color: #64748b;
+            line-height: 1.6;
+            font-size: 0.92em;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Challenge Univariate Analysis Index</h1>
+    <p class="subtitle"><strong>Dataset:</strong> March, April, and May deposit files (combined, cleaned) &nbsp;|&nbsp; <strong>Generated:</strong> 2026-06-11 13:14 &nbsp;|&nbsp; <strong>Note:</strong> Generated from the three raw challenge CSVs after header alignment.</p>
+    <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Rows</div>
+                <div class="stat-value">1,771,026</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Channels</div>
+                <div class="stat-value">171</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">UserCardBINs</div>
+                <div class="stat-value">9,167</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Approval Rate</div>
+                <div class="stat-value">61.88%</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Fraud Rate</div>
+                <div class="stat-value">0.938%</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Segment Nulls</div>
+                <div class="stat-value">0</div>
+            </div>
+            
+            <div class="stat-card small">
+                <div class="stat-label">Months Covered</div>
+                <div class="stat-value">Mar 2026, Apr 2026, May 2026, Jun 2026</div>
+            </div>
+            
+            <div class="stat-card small">
+                <div class="stat-label">Schema Note</div>
+                <div class="stat-value">May file should already use UserCardBIN</div>
+            </div>
+            </div>
+    
+    
+        <div class="notes-container">
+            <div class="section-header">
+            <div class="section-title">Report Index</div>
+            </div>
+            <div class="report-grid">
+        
+            <div class="report-card">
+                <a href="channel_analysis.html">Channel Univariate Analysis</a>
+                <div class="report-description">Cardinality, concentration, and long-tail structure for Channel.</div>
+            </div>
+            
+            <div class="report-card">
+                <a href="usercardbin_analysis.html">UserCardBIN Univariate Analysis</a>
+                <div class="report-description">Cardinality, concentration, and long-tail structure for UserCardBIN.</div>
+            </div>
+            
+            <div class="report-card">
+                <a href="approved_analysis.html">Approved Univariate Analysis</a>
+                <div class="report-description">Overall distribution for Approved.</div>
+            </div>
+            
+            <div class="report-card">
+                <a href="fraud_analysis.html">Fraud Univariate Analysis</a>
+                <div class="report-description">Overall distribution for Fraud.</div>
+            </div>
+            
+            <div class="report-card">
+                <a href="transactiondate_analysis.html">TransactionDate Univariate Analysis</a>
+                <div class="report-description">Intraday, weekly, monthly, and daily volume distribution for transaction creation time.</div>
+            </div>
+            
+            <div class="report-card">
+                <a href="frauddetectiondate_analysis.html">FraudDetectionDate Univariate Analysis</a>
+                <div class="report-description">Missingness and calendar distribution for fraud detection timestamps.</div>
+            </div>
+            
+            <div class="report-card">
+                <a href="segment_analysis.html">Segment Univariate Analysis</a>
+                <div class="report-description">Volume, share, and cumulative distribution for customer segment.</div>
+            </div>
+            
+            </div>
+        </div>
+        
+    <div class="table-container">
+        <div class="section-header">
+            <div class="section-title">Monthly Summary</div>
+        </div>
+        <table>
+            <thead>
+                <tr><th>Transaction Month</th><th>Rows</th><th>Approval Rate</th><th>Fraud Rate</th><th>Min TransactionDate</th><th>Max TransactionDate</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Mar 2026</td><td>609,519</td><td>62.98%</td><td>1.208%</td><td>2026-03-01 00:00</td><td>2026-03-31 23:59</td></tr><tr><td>Apr 2026</td><td>561,701</td><td>62.84%</td><td>1.056%</td><td>2026-04-01 00:00</td><td>2026-04-30 23:59</td></tr><tr><td>May 2026</td><td>599,805</td><td>59.86%</td><td>0.554%</td><td>2026-05-01 00:00</td><td>2026-05-31 23:59</td></tr><tr><td>Jun 2026</td><td>1</td><td>0.00%</td><td>0.000%</td><td>2026-06-01 00:00</td><td>2026-06-01 00:00</td></tr>
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <div class="observations">
+        <h2>Key Observations</h2>
+        <ul>
+            <li><span class="badge">Observation</span> This folder contains one report per original challenge variable, using the combined March-April-May dataset.</li><li><span class="badge">Observation</span> The unification step assumes May already uses the same UserCardBIN header as March and April.</li><li><span class="badge">Observation</span> The month summary lets you separate actual performance changes from simple differences in file size.</li><li><span class="badge">Observation</span> FraudDetectionDate is sparse by design, so its report is the one place where lag-to-detection is added explicitly.</li>
+        </ul>
+    </div>
+    
+</body>
+</html>

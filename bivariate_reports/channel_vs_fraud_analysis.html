@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channel vs Fraud Bivariate Analysis</title>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px;
+            background: #f0f2f5;
+            color: #1a1a2e;
+        }
+        h1 {
+            color: #1a1a2e;
+            font-size: 1.85em;
+            font-weight: 600;
+            margin-bottom: 6px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #4A90D9;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 16px 18px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-left: 4px solid #4A90D9;
+        }
+        .stat-card.small .stat-value {
+            font-size: 1.05em;
+        }
+        .stat-label {
+            color: #888;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .stat-value {
+            color: #1a1a2e;
+            font-size: 1.35em;
+            font-weight: 600;
+            line-height: 1.25;
+            word-break: break-word;
+        }
+        .panel, .observations {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #4A90D9;
+            border-radius: 2px;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.05em;
+        }
+        .table-wrap {
+            padding: 18px 20px 22px 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.94em;
+        }
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        th {
+            color: #555;
+            font-weight: 600;
+            background: #fafbfd;
+        }
+        .observations {
+            padding: 20px 24px;
+        }
+        .observations h2 {
+            color: #333;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0 0 12px 0;
+        }
+        .observations ul {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.9;
+        }
+        .badge {
+            display: inline-block;
+            background: #EEF4FA;
+            color: #4A90D9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Channel vs Fraud Bivariate Analysis</h1>
+    <p class="subtitle"><strong>Dataset:</strong> March, April, and May deposit files (combined, cleaned) &nbsp;|&nbsp; <strong>Generated:</strong> 2026-06-12 11:32 &nbsp;|&nbsp; <strong>Scope:</strong> Raw observed fraud rate by channel in the cleaned dataset.</p>
+    <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Rows Analyzed</div>
+                <div class="stat-value">1,771,026</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Distinct Channels</div>
+                <div class="stat-value">171</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Overall Fraud Rate</div>
+                <div class="stat-value">0.938%</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Median Fraud Rate</div>
+                <div class="stat-value">0.730%</div>
+            </div>
+            
+            <div class="stat-card small">
+                <div class="stat-label">Top Channel</div>
+                <div class="stat-value">SKYDOOR28</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Top Value Rows</div>
+                <div class="stat-value">156,436</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Top Value Fraud Rate</div>
+                <div class="stat-value">1.206%</div>
+            </div>
+            
+            <div class="stat-card small">
+                <div class="stat-label">Highest Fraud Rate Channel</div>
+                <div class="stat-value">BATTLE12</div>
+            </div>
+            </div>
+    <div class="panel">
+        <div class="section-header">
+            <div class="section-title">Bivariate Charts</div>
+        </div>
+        <div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="5c65f0e5-4f50-4db2-b721-053eb8ae9fd3" class="plotly-graph-div" style="height:620px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("5c65f0e5-4f50-4db2-b721-053eb8ae9fd3")) {                    Plotly.newPlot(                        "5c65f0e5-4f50-4db2-b721-053eb8ae9fd3",                        [{"customdata":{"dtype":"i4","bdata":"tUwAABIBAADrTAAAdgAAAIBQAAAJAQAACFIAANgAAADBUgAA3QAAAAdTAAAYAQAAtVQAAFsAAABPXwAAsgAAAGdxAACtAAAAp3MAALIBAAAKeAAALgEAAP56AAAGAQAAjpcAANcCAADGsAAAWwEAALzZAAAuAwAAEOgAAB0DAABw+AAA6AAAAG8OAQBeAwAAYQkCAGcDAAAUYwIAXgcAAA==","shape":"20, 2"},"hovertemplate":"\u003cb\u003eChannel:\u003c\u002fb\u003e %{y}\u003cbr\u003e\u003cb\u003eFraud Rate:\u003c\u002fb\u003e %{x:.3f}%\u003cbr\u003e\u003cb\u003eRows:\u003c\u002fb\u003e %{customdata[0]:,}\u003cbr\u003e\u003cb\u003ePositive rows:\u003c\u002fb\u003e %{customdata[1]:,}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#4A90D9"},"orientation":"h","text":["1.40%","0.60%","1.29%","1.03%","1.04%","1.32%","0.42%","0.73%","0.60%","1.47%","0.98%","0.83%","1.87%","0.77%","1.46%","1.34%","0.36%","1.25%","0.65%","1.21%"],"textposition":"outside","x":{"dtype":"f8","bdata":"BKRPd0BT9j99+1BBIC3jP4sJuqsUk\u002fQ\u002fUAd1UAd18D8pQt366LDwPz1RYRDQE\u002fU\u002fdOldWXbb2j9+89dGYFjnPxGS1Lq7EeM\u002fyGM0ozN09z8C78twtnLvP+K1MXGxoOo\u002fTK2sBR77\u002fT8um6SZfInoPxhzaayZXfc\u002f6VFcRRJ39T\u002fqMX+vjVjXP9xnx0b16\u002fM\u002fQiz9AdPh5D+MLyBPKErzPw=="},"y":["DRIVE537","PEACH6","SKYDOOR43","BULL3","ATM50","SKYDOOR51","SILVER","BATTLE5","BATTLE7","DRIVE779","ORANGE31","DRIVE771","BEST46","SKYDOOR19","SKYDOOR29","SKYDOOR49","SKYDOOR16","BEST45","SKYDOOR18","SKYDOOR28"],"type":"bar","xaxis":"x","yaxis":"y"},{"customdata":[["SKYDOOR28",1886],["SKYDOOR18",871],["BEST45",862],["SKYDOOR16",232],["SKYDOOR49",797],["SKYDOOR29",814],["SKYDOOR19",347],["BEST46",727],["DRIVE771",262],["ORANGE31",302],["DRIVE779",434],["BATTLE7",173],["BATTLE5",178],["SILVER",91],["SKYDOOR51",280],["ATM50",221],["BULL3",216],["SKYDOOR43",265],["PEACH6",118],["DRIVE537",274],["BATTLE2",308],["DRIVE711",28],["DRIVE794",0],["PEACH9",80],["SKYDOOR50",171],["DRIVE547",164],["ORANGE23",98],["SILVER9",12],["SKYDOOR47",262],["PEACH",128],["SKYDOOR45",224],["DRIVE635",64],["CCCOIN13",128],["DRIVE709",58],["BATTLE",88],["DRIVE656",29],["DRIVE725",74],["DRIVE791",53],["BATTLE12",361],["PEACH8",43],["DRIVE712",60],["DRIVE787",40],["DRIVE751",45],["PEACH5",129],["DRIVE772",88],["DRIVE538",142],["DRIVE741",78],["DRIVE749",34],["DRIVE738",56],["QUEEN6",109],["PEACH7",109],["DRIVE727",56],["BULL4",63],["DRIVE454",31],["DRIVE695",127],["SKYDOOR52",133],["DRIVE205",110],["BEST35",47],["BEST48",24],["SILVER1",59],["QUEEN8",14],["BEST19",72],["MAYDAY25",45],["BATTLE6",97],["DRIVE796",51],["DRIVE784",42],["DRIVE795",0],["DRIVE788",80],["BATTLE11",117],["DRIVE722",128],["PEACH1",162],["ORANGE14",77],["BATTLE14",14],["DRIVE721",77],["BULL",10],["SKYDOOR46",130],["DRIVE629",57],["DRIVE632",68],["QUEEN5",18],["PURPLE",59],["QUEEN10",10],["SKYDOOR17",12],["BEST37",51],["SKYDOOR48",95],["DRIVE597",57],["DRIVE763",35],["DRIVE759",41],["SILVER10",53],["DRIVE658",26],["DRIVE643",42],["BATTLE3",147],["DRIVE753",38],["ATM35",15],["SILVER8",12],["DRIVE204",20],["DRIVE355",22],["PURPLE1",53],["SILVER3",66],["BEST43",17],["QUEEN9",32],["DRIVE565",26],["DRIVE757",38],["DRIVE761",36],["ATM51",17],["ORANGE22",32],["DRIVE710",38],["PURPLE2",100],["SILVER5",20],["DRIVE755",20],["BATTLE8",30],["ORANGE32",30],["BEST40",12],["PURPLE3",66],["BULL2",25],["DRIVE650",48],["DRIVE490",30],["BEST41",23],["DRIVE364",37],["DRIVE750",9],["OAK",11],["DRIVE769",29],["BATTLE15",1],["BULL1",9],["DRIVE739",20],["BATTLE1",31],["DRIVE728",56],["DRIVE347",42],["DRIVE765",29],["OIL1",18],["DRIVE752",18],["BATTLE4",21],["DRIVE786",14],["DRIVE726",37],["DRIVE799",7],["DRIVE657",6],["ATM47",5],["DRIVE398",22],["DRIVE455",4],["DRIVE792",5],["DRIVE585",8],["QUEEN11",21],["DRIVE785",6],["SILVER6",6],["MAYDAY1",13],["OIL4",0],["SILVER7",2],["OAK1",3],["ORANGE33",13],["DRIVE797",8],["WINE",3],["OIL2",5],["CCCOIN12",5],["DRIVE760",11],["MAYDAY2",13],["DRIVE764",1],["DRIVE758",7],["BEST39",10],["DRIVE793",4],["DRIVE767",1],["DRIVE290",7],["PEACH10",4],["DRIVE754",1],["DRIVE770",2],["BEST44",1],["FIRE5",5],["DRIVE766",0],["FIRE1",6],["BATTLE9",0],["BLUE118",0],["SILVER11",0],["SILVER12",0]],"hovertemplate":"\u003cb\u003eChannel:\u003c\u002fb\u003e %{customdata[0]}\u003cbr\u003e\u003cb\u003eRows:\u003c\u002fb\u003e %{x:,}\u003cbr\u003e\u003cb\u003eFraud Rate:\u003c\u002fb\u003e %{y:.3f}%\u003cbr\u003e\u003cb\u003ePositive rows:\u003c\u002fb\u003e %{customdata[1]:,}\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#E8A87C","opacity":0.38,"size":7},"mode":"markers","x":{"dtype":"i4","bdata":"FGMCAGEJAgBvDgEAcPgAABDoAAC82QAAxrAAAI6XAAD+egAACngAAKdzAABncQAAT18AALVUAAAHUwAAwVIAAAhSAACAUAAA60wAALVMAACZTAAAJ0wAABVGAABbPgAAlDoAAKc5AADgNgAAOjUAAPU0AAC\u002fNAAAbzIAAPkxAAAVMQAAty8AAJ0tAACOLQAAoSwAAJ4sAACILAAA+CsAAPUqAACvKgAAiCoAALgpAABjKAAA+ycAAN4nAADbJwAAMicAAKMlAAABJQAAmyQAAGIkAABkIgAAWiIAAEggAADyHwAAnx8AAOceAADvHQAAnRwAAJkcAABsHAAAQhwAAN8bAABLGwAAQRsAACAbAAB0GgAAdBoAADsaAADqGQAA6BkAANwZAACJGQAAUhkAAE8ZAABhGAAAVxgAAPsXAACsFwAAgRcAAPkWAACEFgAALRYAAC8VAADaFAAAtxQAAHMUAABSFAAASxQAAG4TAAAUEwAA8BIAAOISAACPEgAAUhIAAAoSAADxEAAAvxAAAIQQAAA9EAAAIBAAAN4PAABtDwAAXQ8AAOcOAABzDgAARQ4AAPANAADMDQAAug0AAJkNAABjDQAALQ0AACQNAAAhDQAAFw0AAPYMAADRDAAAuwwAAFQMAABIDAAAQwwAAC8MAAAnDAAApQsAAJ8LAABkCwAATQsAAEkLAAAbCgAA3wkAADIJAADkCAAAIQgAAHwHAAA9BwAASwYAADUGAAAWBgAA7AUAAOcFAACIBQAAZQUAAEQFAAA+BQAAKwUAABkFAAAHBQAAmAQAAG8EAADiAwAA2gMAAMwDAACJAwAAbQMAAF0DAABKAwAABQMAAOMCAACsAgAAjwIAAIsCAAB3AgAAZgEAAGMBAAAHAAAABAAAAAMAAAACAAAA"},"y":{"dtype":"f8","bdata":"jC8gTyhK8z9CLP0B0+HkP9xnx0b16\u002fM\u002f6jF\u002fr41Y1z\u002fpUVxFEnf1PxhzaayZXfc\u002fLpukmXyJ6D9MrawFHvv9P+K1MXGxoOo\u002fAu\u002fLcLZy7z\u002fIYzSjM3T3PxGS1Lq7EeM\u002ffvPXRmBY5z906V1ZdtvaPz1RYRDQE\u002fU\u002fKULd+uiw8D9QB3VQB3XwP4sJuqsUk\u002fQ\u002ffftQQSAt4z8EpE93QFP2P8jz5wGeIfk\u002frah1AFtiwj8AAAAAAAAAAJrg0XN+CeA\u002fCFD8fa8+8j+B2JJia8fxP6gZzG7OUuY\u002fDVHv642Ltj\u002f4Z8YB2uv+P8S2qAOBVe4\u002fBa9L2V\u002fC+z\u002fYLPfAPQLgPyGPE0CbTPA\u002fsfJcu4xj3j8ZlyT3ox3oPxUf5Kxy1M8\u002fGK3zZfq55D9ws5OPc7LdP1ZVVVVVVQlA76F6ov1y2D8jhycmlXXhP4J33d2ebdc\u002fbhI+1n1z2j+1qU1talPzP\u002f2Ed9eWPOs\u002fYxnLWMYy9j9pTmuryXToP+q3ej+6U9U\u002fj+c2rPnb4T9bnujPxRnyP\u002f1+pRQEafI\u002f2gj0gXEf4z\u002f\u002fnFj0E6XlPyHRCpsDidY\u002fbPnUTk4b9z9XS1DcD8D5PxlciV5qhfU\u002frbJSl1GU4j+9\u002fsAsf2rTP6WNkHdLo+g\u002f2ru1cNN2yD\u002fam6+ymnjvP0IeCyOFyuM\u002fBrApU0l09T\u002fE1Opxh9\u002fmPwhP2V9YPOM\u002fAAAAAAAAAACUu8nd5G7yP1UvsyurpPs\u002fnHe9F\u002f89\u002fj+4xAiu0UwDQP4r7uoskvI\u002fpIY87D8Fyz\u002frcIrHOpzyP1DVsWuylMM\u002fU675z18LAEAonHDCCSfsP\u002fVZz+HfbvE\u002fOJhR8vp80j+QfO\u002fjEsHuPxCj8b5CH8U\u002fI8BcfBWHyT9p7cISGcDrP2f+aBHeXvo\u002fVqj3PJgQ8D9gPM9GHKfkP9fbvCsYlOg\u002f8k+4ml377z+HQSztOsnfPwPHik4S1uk\u002fx3W+VRyjBkBLGIzJdnLoPzkjeOfwp9M\u002fmHRqHuSuzz+AWWO2pnraP2XIdx\u002fIot0\u002fD9H9870U8j88LhN39t32P6yy\u002fZYiFtk\u002fsqRG39vi5z+etk5bp63jP1bpLy56QO0\u002f+oK+oC\u002fo6z+D8kTz6sjaP8vAqs487uk\u002fmTwB0fnq7j+ET8l4SPgEQH0LviJOTeE\u002f0zFlrBSF4T8\u002fV8xy5OfqP5AJ5e4YLus\u002f8zeA0P3a1T8fvFJTC1b+P3dsnIYSWOc\u002f0KHcWeDE9j+F+oGtlonsP+VALFvz5eU\u002fFnkJHJeq8T+4Iq16H1zRP\u002fqxZ5\u002f1dNU\u002ft6DmGJl57D+TlSfuGjmgP+6Cv4oTUtI\u002f0\u002fjHJH9j5D+OIpXJGM7vPy06+zUQzfw\u002f0YBUCPOK9j+gejGfejHvP7fmh0XKwOM\u002fe9pHJP7o4z\u002fpx7CNuULnP+GsVz4+UeE\u002fhBiyHk9t9z95RhwuDAjTP5ZCzAoo39A\u002fY8FcTiPBzj+Bso6rIV\u002fyP75fJ5+Aocs\u002fMpI4VArd0z8Lo1zdWhzgP54abZzskPU\u002f2POVxm5U2T928yXg42nZP8X4lGnnYO0\u002fAAAAAAAAAADAxO2XuP3CPxPRpLAvncw\u002fiNJAk5Vx7z9SieRr6p3jP0yA7Xo61s0\u002fzo5ahPw12z9THWIDnzHcP1Ck0fnLtPE\u002fydGc2mcY9T9K3l8HY1a6P05F84RawOg\u002fO05Ernc+8j8FsHBJnbvdP0R9yndfZ74\u002fM+F4t1767D\u002f523eiGVLhP2orqa2ktsI\u002fh2nugr+K0z\u002fzpU6ofKnDP8tUCZ9IW+k\u002fAAAAAAAAAABZYXMg0Qr7PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"type":"scatter","xaxis":"x2","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.44],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Fraud Rate (%)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Channel"}},"xaxis2":{"anchor":"y2","domain":[0.56,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Rows"},"type":"log"},"yaxis2":{"anchor":"x2","domain":[0.0,1.0],"showgrid":true,"gridcolor":"rgba(0, 0, 0, 0.06)","zeroline":false,"tickcolor":"#999","ticklen":4,"title":{"text":"Fraud Rate (%)"}},"annotations":[{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eTop 20 Channels by Rows: Fraud Rate\u003c\u002fb\u003e","x":0.22,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"color":"#333333","family":"Segoe UI, -apple-system, sans-serif","size":13},"showarrow":false,"text":"\u003cb\u003eRows vs Fraud Rate\u003c\u002fb\u003e","x":0.78,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"title":{"text":""},"font":{"family":"Segoe UI, -apple-system, sans-serif","size":12,"color":"#333333"},"margin":{"l":70,"r":30,"t":40,"b":50},"showlegend":false,"height":620,"paper_bgcolor":"#FAFAFA","plot_bgcolor":"#FAFAFA"},                        {"responsive": true}                    )                };            </script>        </div>
+    </div>
+    
+    <div class="panel">
+        <div class="section-header">
+            <div class="section-title">Top Channels by Rows</div>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Channel</th><th>Rows</th><th>Fraud Rows</th><th>Volume Share</th><th>Fraud Rate</th><th>Fraud Rate vs Overall</th></tr></thead>
+                <tbody><tr><td>SKYDOOR28</td><td>156,436</td><td>1,886</td><td>8.83%</td><td>1.206%</td><td>1.29x</td></tr><tr><td>SKYDOOR18</td><td>133,473</td><td>871</td><td>7.54%</td><td>0.653%</td><td>0.70x</td></tr><tr><td>BEST45</td><td>69,231</td><td>862</td><td>3.91%</td><td>1.245%</td><td>1.33x</td></tr><tr><td>SKYDOOR16</td><td>63,600</td><td>232</td><td>3.59%</td><td>0.365%</td><td>0.39x</td></tr><tr><td>SKYDOOR49</td><td>59,408</td><td>797</td><td>3.35%</td><td>1.342%</td><td>1.43x</td></tr><tr><td>SKYDOOR29</td><td>55,740</td><td>814</td><td>3.15%</td><td>1.460%</td><td>1.56x</td></tr><tr><td>SKYDOOR19</td><td>45,254</td><td>347</td><td>2.56%</td><td>0.767%</td><td>0.82x</td></tr><tr><td>BEST46</td><td>38,798</td><td>727</td><td>2.19%</td><td>1.874%</td><td>2.00x</td></tr><tr><td>DRIVE771</td><td>31,486</td><td>262</td><td>1.78%</td><td>0.832%</td><td>0.89x</td></tr><tr><td>ORANGE31</td><td>30,730</td><td>302</td><td>1.74%</td><td>0.983%</td><td>1.05x</td></tr><tr><td>DRIVE779</td><td>29,607</td><td>434</td><td>1.67%</td><td>1.466%</td><td>1.56x</td></tr><tr><td>BATTLE7</td><td>29,031</td><td>173</td><td>1.64%</td><td>0.596%</td><td>0.64x</td></tr><tr><td>BATTLE5</td><td>24,399</td><td>178</td><td>1.38%</td><td>0.730%</td><td>0.78x</td></tr><tr><td>SILVER</td><td>21,685</td><td>91</td><td>1.22%</td><td>0.420%</td><td>0.45x</td></tr><tr><td>SKYDOOR51</td><td>21,255</td><td>280</td><td>1.20%</td><td>1.317%</td><td>1.40x</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+    
+    
+    <div class="observations">
+        <h2>Key Observations</h2>
+        <ul><li><span class="badge">Observation</span> The largest channel is SKYDOOR28 with 156,436 rows and an observed fraud rate of 1.206%.</li><li><span class="badge">Observation</span> The median fraud rate across 171 channels is 0.730%, while the overall dataset rate is 0.938%.</li><li><span class="badge">Observation</span> The scatterplot shows how much of the rate spread is happening in thin values versus higher-volume values.</li><li><span class="badge">Observation</span> The top-20 chart is ordered by rows, so it prioritizes operationally relevant values rather than just extreme rates from tiny samples.</li><li><span class="badge">Observation</span> This fraud view is still raw observed fraud by value. It is not maturity-adjusted and should be read as an exploratory bivariate cut, not as the final decision metric.</li></ul>
+    </div>
+    
+</body>
+</html>

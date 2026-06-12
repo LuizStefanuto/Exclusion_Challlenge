@@ -1,0 +1,17 @@
+/*
+!/.gitignore
+
+!/Data_Prep/
+!/bivariate_reports/
+!/multivariate_reports/
+!/univariate_reports/
+!/decision design/
+
+!/Data_Prep/**
+!/bivariate_reports/**
+!/multivariate_reports/**
+!/univariate_reports/**
+!/decision design/**
+
+**/__pycache__/
+**/*.py[cod]

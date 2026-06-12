@@ -1,0 +1,5 @@
+Segment,reference_nodes_with_segment,p90_decline_streak,median_decline_streak,max_decline_streak,decline_streak_threshold
+1,2542,8.0,4.0,205,8
+2,2468,10.0,4.0,105,10
+3,1457,14.0,5.0,101,14
+4,1291,20.0,5.0,164,20
