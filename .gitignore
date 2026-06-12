@@ -5,13 +5,13 @@
 !/bivariate_reports/
 !/multivariate_reports/
 !/univariate_reports/
-!/decision design/
+!/decision_design/
 
 !/Data_Prep/**
 !/bivariate_reports/**
 !/multivariate_reports/**
 !/univariate_reports/**
-!/decision design/**
+!/decision_design/**
 
 **/__pycache__/
 **/*.py[cod]
